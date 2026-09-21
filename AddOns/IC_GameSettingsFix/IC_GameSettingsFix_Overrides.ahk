@@ -21,7 +21,6 @@ class IC_GameSettingsFix_SharedFunctions_Class extends IC_SharedFunctions_Class
 {
 	OpenIC()
 	{
-		Run, "D:\Tools\Idle Champions Scripts\CacheEditModronLimit.vbs"
 		this.GSF_FixGameSettings()
 		base.OpenIC()
 	}
