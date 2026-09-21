@@ -7,7 +7,6 @@ class IC_BrivGemFarm_LevelUp_Class extends IC_BrivGemFarm_Class
 {
     Levelupx25 := {}
     ExtraChamps := {}
-    SeenStopSign := 0
     ; ChampIDs - See IC_BrivGemFarm_Class
 
     ;=====================================================
@@ -46,58 +45,8 @@ class IC_BrivGemFarm_LevelUp_Class extends IC_BrivGemFarm_Class
         this.ExtraChamps := {}
         this.BGFLU_DoPartyWaits(formationModron)
         g_SF.FormationSwitchLock := False
-        this.BGFLU_DoBackgroundPartyWaits()
         g_SF.ToggleAutoProgress( 1, false, true )
         return resetsCount
-    }
-    
-    BGFLU_DoBackgroundPartyWaits(bgflu_dbpw_timeout := 900000) ; 15 minute timeout
-    {
-        bgflu_dbpw_stop := A_LineFile . "\..\stop.txt"
-        bgflu_dbpw_start := A_LineFile . "\..\start.txt"
-        if (FileExist(bgflu_dbpw_start))
-            FileDelete, %bgflu_dbpw_start%
-        if (FileExist(bgflu_dbpw_stop))
-        {
-            if (this.SeenStopSign < 1)
-            {
-                this.SeenStopSign += 1
-                return
-            }
-            g_SharedData.LoopString := "Background Runner said STOP."
-            FileDelete, %bgflu_dbpw_stop%
-            ; Wait until start exists.
-            bgflu_dbpw_fellback := false
-            bgflu_dbpw_begin := A_TickCount
-            g_SF.DirectedInput(,, "{p}")
-            bgflu_dbpw_elapsedTime := 0
-            bgflu_dbpw_currZone := g_SF.Memory.ReadCurrentZone()
-            while (!FileExist(bgflu_dbpw_start) && bgflu_dbpw_elapsedTime < bgflu_dbpw_timeout)
-            {
-                if (!bgflu_dbpw_fellback || !g_SF.IsCurrentFormationLazy(g_SF.Memory.GetFormationByFavorite(1)))
-                {
-                    bgflu_dbpw_counter := 0
-                    while (g_SF.Memory.ReadCurrentZone() >= bgflu_dbpw_currZone && bgflu_dbpw_counter < 5)
-                    {
-                        g_SF.DirectedInput(,, "{Left}")
-                        bgflu_dbpw_counter++
-                        Sleep, 10
-                    }
-                    if (g_SF.Memory.ReadCurrentZone() < bgflu_dbpw_currZone)
-                        bgflu_dbpw_fellback := true
-                    loop, 10
-                        g_SF.DirectedInput(,, "{q}" ) ; ditch w so Tatyana stops spawning enemies
-                }
-                Sleep, 50
-                bgflu_dbpw_elapsedTime := A_TickCount - bgflu_dbpw_begin
-            }
-            if (elapsedTime >= bgflu_dbpw_timeout)
-                g_SharedData.LoopString := "Timed out waiting for Background Runner."
-            else
-                g_SharedData.LoopString := "Background Runner said START."
-            FileDelete, %bgflu_dbpw_start%
-        }
-        this.SeenStopSign := 0
     }
 
     GemFarmDoNonModronActions(currentZone := "")
