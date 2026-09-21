@@ -73,7 +73,7 @@ At the bottom of this tab you will find a button called `Change Game Location`. 
 
 While that menu is active:
 1. Make sure the Idle Champions game window is open and loaded.
-2. If your game is installed through Epic Games Store tick the `EGS` tickbox.
+2. If your game is installed through Epic Games Store tick the `EGS` tickbox. Otherwise do not.
 3. Click `Copy From Running Game`.
 4. Click `Save and Close`.
 
@@ -132,9 +132,9 @@ There are also two primary pieces of information you need from your game.
 
 Both of those pieces of information are used for deciding where your `Modron Reset Zone` is.
 1. You use your `favour exponent` for determining the `Rush cap` for Thellora. With her `Thin Their Ranks` feat equipped - it is `5 x [favour exponent]`. This will be the minimum value for your modron reset zone. Resetting below this is **strongly** discouraged (it invites inconsistency - ask in Discord if you want to know why).
-2. You use your `gold find exponent` to determine your `Click Wall` - which is to say the highest zone your click damage can kill things in 1 hit. Beyond that - a gem farm will slow down dramatically. You determine an approximation of your click wall with `[gold find exponent] * 7.63`. This will be the maximum value for your modron reset zone.
+2. You use your `gold find exponent` to determine your `Click Wall` - which is to say the highest zone your click damage can kill things in 1 hit. Beyond that - a gem farm will slow down dramatically. You determine an approximation of your click wall with `[gold find exponent] x 7.63`. This will be the maximum value for your modron reset zone.
 
-Once you know your `Rush cap` and your `Click Wall` - you can choose where to modron reset. It can be anywhere between those two values. Generally speaking if you are offline stacking you will want to reset nearer your `Click Wall` - and hybrid stacking will want to stack closer (but not at) `Rush cap`.
+Once you know your `Rush cap` and your `Click Wall` - you can choose where to modron reset. It can be anywhere between those two values. Generally speaking if you are offline stacking you will want to reset nearer your `Click Wall` - and hybrid stacking will want to stack closer to (but not at) `Rush cap`.
 
 > [!TIP]
 > *There is one caveat to offline stacking. You want to make sure you get enough stacks from ONE offline stack to do one or multiple runs. Stacking multiple times in the same run is bad. So - if your `Target Stacks` (discussed in the next section) are too high to be attainable - you may wish to lower your reset zone until the required stacks are enough.*
@@ -143,21 +143,21 @@ Once you know your `Rush cap` and your `Click Wall` - you can choose where to mo
 
 There are four main settings here that you will want to make sure are correct for your setup. The others you can largely leave default.
 
-1. `Minimum Stack Zone`: This should be set to the lowest zone where the W (Fav:2) formation cannot kill anything (plus about 5-10 zones in-case of event buffs or weekend buffs).
-   - Do not make up the value you put in this setting. It is for recovery runs where Briv doesn't have any stacks. The script will have to crawl to this zone so you want it to be as low as possible.
+1. `Minimum Stack Zone`: This should be set to the lowest zone where the `W` (Fav:2) formation cannot kill anything (plus about 5-10 zones in-case of event buffs or weekend buffs).
+   - Do not guess or make up the value you put in this setting. Test it. It is for recovery runs where Briv doesn't have any stacks. The script will have to crawl to this zone so you want it to be as low as possible.
    - If it is too low - Briv will kill and he'll get no stacks.
    - If it is too high - it's possible your team will never get there - or it will just take forever.
    - You never want to need this setting - but it's better to have it and not need it - than need it and not have it.
-2. `Farm Steelbones stacks AFTER this zone`: You can stack anywhere between your `Minimum stack zone` and two Briv jumps prior to your `Modron Reset Zone`.
+2. `Farm Steelbones stacks AFTER this zone`: You can stack anywhere between your `Minimum stack zone` and two Briv jumps prior to your `Modron Reset Zone`. Ideally where you stack will get you enough stacks for your run. Too high and Briv might die too quickly for example.
    - Note that I said `two Briv jumps prior` and NOT `two zones prior`. For example a 3j Briv can move 4 zones per jump - skipping 3 zones and landing on the one after. So 2 jumps for 3j will be 8 zones prior to your reset.
    - However - also note that this setting says `AFTER` - it cannot stack on the zone you set. So if you were 100% 3j and your reset was z300 - you would want to set *at most* `291`. These are just example numbers - do not copy them.
    - If you are running `Doubles` or `Triples` (stacking once and gaining enough stacks to do two or three runs respectively) - you will need to stack later (nearer the modron reset) in a run for consistency.
 3. `Time (ms) client remains closed to trigger Restart Stacking`: This is how long the script delays before starting the game again after turning it off to do offline stacking. You want this to be as low as it can possibly be while still triggering the offline calculation simulation every single time.
    - `6000`ms is the default and should be more than enough for most people - though some may need to increase it. Most will want to reduce it.
 4. `Target haste stacks for next run`: This is your `Target Stacks`. To determine this you go to [Briv Scripting Routes](https://emmotes.github.io/ic_scripting_routes/) site [Stacks Calculator](https://emmotes.github.io/ic_scripting_routes/#stacksTab) tab.
-   1. Fill in your details.
-   2. Read the resulting information.
-   - Never make up this value. Always refer to the site and use the exact value it says.
+   - Fill in your details.
+   - Read the resulting information.
+   - Never make up this value. Always refer to the site and use the value it says.
 
 ## BrivGF Advanced
 
@@ -174,11 +174,11 @@ You should be able to leave all of the settings here alone - but there are a few
 - `Widdle`: Once you hit 4j you will want to change Widdle's `Max` level to `300`. It no longer gets you her specialisation - so she will need more ilvls - but it avoids unnecessary levelling.
 - `Briv`: You may need to lower his `Max` from `1300` to a number you can afford on zone 1 or Thellora's Rush zone. A number higher than that can confuse the script and cause failed runs.
    - For offline stacking - it should be as high as you can afford early.
-   - For hybrid stacking it should be `200` at most.
+   - For hybrid stacking it should be `200`.
 
 ### General Settings
 
-- `Delay (ms)`: A delay of `0` ms is generally preferred but some potato machines might struggle with random over or under levelling. If you encounter this - you may wish to increase it to `50` or `100` or something like that. You will need to test.
+- `Delay (ms)`: A delay of `0` ms is generally preferred but some potato machines might struggle with random over-or-under-levelling. If you encounter this - you may wish to increase it to `50` or `100` or something like that. You will need to test.
 - `Minimum area to reach before leveling Briv`: This is often referred to as `Combining` or `Not-Combining` Briv and Thellora. To combine you set a value of `1`. To not-combine you set a value of `2`.
    - `Combining` will land Thellora on zone `favour + Briv + 1`.
    - `Not-Combining` will land Thellora on zone `favour + 1`.
@@ -190,12 +190,12 @@ You should be able to leave all of the settings here alone - but there are a few
 
 ## RNG Waiting Room
 
-This addon controls what we call `EllyWaiting` - which is to say - waiting on Thellora's landing zone for Ellywick to some Gem cards. The purpose is to pull as many Gem cards as you can get before the game sends a timed save.
+This addon controls what we call `EllyWaiting` - which is to say waiting on Thellora's landing zone for Ellywick to get some Gem cards. The purpose is to pull as many Gem cards as you can get before the game sends a timed save.
 
 The script will use Ellywick's ultimate to reroll the cards she has picked if they are rubbish. It will also use Dungeon Master's ultimate to refresh Ellywick's ultimate so she has a second chance to reroll.
 
 - `Number of gem cards`: Should be `3` with Ellywick's `Gem` feat - or `2` if you don't have it.
-- `Max redraws`: Should be `2` if you use Dungeon Master - or `1` if you do not.
+- `Max redraws`: Should be `2` if you use Dungeon Master - or `1` if you do not. (You should use DM.)
 - `Always wait for 5 draws`: This should be off except in the one specific case where you hit a boss on your run very early. By early I mean before Ellywick tends to have 5 cards.
 - `On-Demand Card Drawing`: This has nothing to do with gem farming. It is used for favour farming where you want lots of Moon cards for gold find.
 
