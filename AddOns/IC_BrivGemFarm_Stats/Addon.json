@@ -3,7 +3,7 @@
 	"Version": "v1.3.3",
     "Includes" : "IC_BrivGemFarm_Stats_Component.ahk",
     "Author" : "Antilectual",
-    "Url" : "https://github.com/antilectual/Idle-Champions/tree/main/AddOns/IC_BrivGemFarm_Stats",
+    "Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_BrivGemFarm_Stats",
     "Info" : "This Addon adds a stats tab to view live gem farm information.",
     "Dependencies" : [
         {

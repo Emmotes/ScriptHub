@@ -365,17 +365,13 @@ class IC_BrivGemFarm_Class
     ; Determines if offline stacking is expected with current settings and conditions.
     ShouldOfflineStack()
     {
-        gemsMax := g_BrivUserSettings[ "ForceOfflineGemThreshold" ]
         runsMax := g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
         ; hybrid stacking not used. Use default test for offline stacking. 
-        if !( (gemsMax > 0) OR (runsMax > 1) )
+        if (runsMax <= 1)
             return ( g_BrivUserSettings [ "RestartStackTime" ] > 0 )
         ; hybrid and already offline stacked
         if (this.DelayStackTest())
             return False
-        ; hybrid stacking by number of gems.
-        if (gemsMax > 0 AND g_SF.Memory.ReadGems() > (gemsMax + g_BrivUserSettings[ "MinGemCount" ]))
-            return True
         ; hybrid stacking by number of runs.
         ; Note: Uses reset count value so can stack restart early the first time.
         if (runsMax > 1)

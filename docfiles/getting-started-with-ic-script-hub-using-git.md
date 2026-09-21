@@ -28,7 +28,7 @@ Log in using the credentials you created in the previous step once you have inst
 
 ## Creating a local clone of the IC Script Hub repository
 
-[Navigate to the code repository for `IC Script Hub` in a browser](https://github.com/antilectual/Idle-Champions/tree/main) and then click the green Code button. Pick `Open with GitHub Desktop`.
+[Navigate to the code repository for `IC Script Hub` in a browser](https://github.com/emmotes/ScriptHub/tree/main) and then click the green Code button. Pick `Open with GitHub Desktop`.
 
 ![Cloning the repository into GitHub Desktop](../docimages/code-and-open-in-github-desktop.png)
 

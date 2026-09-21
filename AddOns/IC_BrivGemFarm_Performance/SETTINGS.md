@@ -64,11 +64,8 @@ Known in the GUI as "No Stack FORTs". When running Forced Offline restarts, the 
 * **WaitForZoneCompleted**: `0` / `1` (Default: `1`)  
 Known in the GUI as "Complete Zone Before Stacking". When checked, the script completes the current zone before starting online stacking.
 
-* **ForceOfflineGemThreshold**: `<integer>` (Default: `0`)  
-Activates "hybrid stacking" (HTS). Forces the script to perform an offline stack restart once the number of gems earned above your reserve limit reaches this threshold (0 = disable).
-
 * **ForceOfflineRunThreshold**: `<integer>` (Default: `0`)  
-Same as `ForceOfflineGemThreshold`, but specified as the number of runs based on "Resets Done" as reported by the current Modron core. An offline stack restart is forced every N runs (0 or 1 = disable). If both run and gem thresholds are set, either reaching its threshold will trigger the stack restart.
+Activates "hybrid stacking" (HTS). Forces the script to perform an offline stack restart once the number of runs based on "Resets Done" as reported by the current Modron core. An offline stack restart is forced every N runs (0 or 1 = disable).
 
 * **BrivJumpBuffer**: `<integer>` (Default: `0`)  
 The number of areas before the Modron reset zone where the script will switch from the 'q' (jump) formation to the 'e' (non-jump) formation to ensure stacks convert properly.

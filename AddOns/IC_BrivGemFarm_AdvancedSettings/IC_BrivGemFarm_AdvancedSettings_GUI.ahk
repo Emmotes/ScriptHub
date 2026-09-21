@@ -10,7 +10,6 @@ GUIFunctions.AddTab("BrivGF Advanced")
 Gui, ICScriptHub:Tab, BrivGF Advanced
 
 ;g_BrivUserSettings[ "IgnoreBrivHaste" ]
-;g_BrivUserSettings[ "ForceOfflineGemThreshold" ]
 ;g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
 ;g_BrivUserSettings[ "BrivJumpBuffer" ]
 ;g_BrivUserSettings[ "DashWaitBuffer" ]
@@ -30,7 +29,7 @@ Class IC_BrivGemFarm_AdvancedSettings_GUI
         GuiControlGet, ws, ICScriptHub:Pos, WindowSettingsGroup
         Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_HiddenFarmWindow xs+10 ys+20, Hide Gem Farm Window
         Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_RestoreLastWindowOnGameOpen xs+10 y+5, Restore Last Window On Game Open
-        Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_IgnoreBrivHaste xs+10 y+5, Predict Stacks Off? (IgnoreBrivHaste)
+        Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_IgnoreBrivHaste xs+10 y+5, Predict Stacks
         Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_FortOnlyRestart xs+10 y+5, No Stack FORTs
         Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_WaitForZoneCompleted xs+10 y+5, Complete Zone Before Stacking
 
@@ -48,12 +47,7 @@ Class IC_BrivGemFarm_AdvancedSettings_GUI
         Gui, ICScriptHub:Add, GroupBox, x235 ys w215 h190 vAdvancedSettingsGroup, Advanced Settings
         
         GUIFunctions.UseThemeTextColor("InputBoxTextColor")
-        Gui, ICScriptHub:Add, Edit, vOptionSettingEdit_ForceOfflineGemThreshold x245 ys+20 w50, % g_BrivUserSettings[ "ForceOfflineGemThreshold" ]
-        GUIFunctions.UseThemeTextColor()
-        Gui, ICScriptHub:Add, Text, vOptionSettingText_ForceOfflineGemThreshold x+5 yp hp 0x200, ForceOfflineGemThreshold
-        
-        GUIFunctions.UseThemeTextColor("InputBoxTextColor")
-        Gui, ICScriptHub:Add, Edit, vOptionSettingEdit_ForceOfflineRunThreshold x245 y+5 w50, % g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
+        Gui, ICScriptHub:Add, Edit, vOptionSettingEdit_ForceOfflineRunThreshold x245 ys+20 w50, % g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
         GUIFunctions.UseThemeTextColor()
         Gui, ICScriptHub:Add, Text, vOptionSettingText_ForceOfflineRunThreshold x+5 yp hp 0x200, ForceOfflineRunThreshold
 
@@ -84,31 +78,7 @@ Class IC_BrivGemFarm_AdvancedSettings_GUI
         local controlLoc := IC_BrivGemFarm_AdvancedSettings_Functions.BuildModTables(20, preferredY)
         IC_BrivGemFarm_AdvancedSettings_Component.LoadAdvancedSettings()
 
-        ; Briv Leveling by Zone
-        ySpacing := 10
-        newW := 440
-        ctrlH := 21
-        levelingY := preferredY + 250
-        Gui, ICScriptHub:Add, Groupbox, Section x10 y%levelingY% w%newW% vBrivLevelingGroup, Briv Leveling by Zone
-        GUIFunctions.UseThemeTextColor("InputBoxTextColor")
-        Gui, ICScriptHub:Add, Edit, w40 xs+%xSection% ys+20 Limit2 vOptionSettingEdit_BrivLevelingCount gBrivLevelingCount
-        GUIFunctions.UseThemeTextColor()
-        Gui, ICScriptHub:Add, Text, x+5 h%ctrlH% 0x200 vOptionSettingText_BrivLevelingCountText, Number of leveling zones (up to 15)
-        Loop, 15
-        {
-            GUIFunctions.UseThemeTextColor("InputBoxTextColor")
-            Gui, ICScriptHub:Add, Edit, w40 Hidden vBrivLevelingZone%A_Index% gBrivLevelingThresholds
-            GUIFunctions.UseThemeTextColor()
-            Gui, ICScriptHub:Add, Text, h%ctrlH% 0x200 Hidden vBrivLevelingZoneText%A_Index%, Zone
-            GUIFunctions.UseThemeTextColor("InputBoxTextColor")
-            Gui, ICScriptHub:Add, Edit, w40 Hidden vBrivLevelingLevel%A_Index% gBrivLevelingThresholds
-            GUIFunctions.UseThemeTextColor()
-            Gui, ICScriptHub:Add, Text, h%ctrlH% 0x200 Hidden vBrivLevelingLevelText%A_Index%, Lvl
-        }
-        ; Initial layout
-        this.UpdateBrivLevelingRows(g_BrivUserSettings[ "BrivLevelingThresholdsCount" ] ? g_BrivUserSettings[ "BrivLevelingThresholdsCount" ] : 5)
-        this.LoadBrivLevelingThresholds(g_BrivUserSettings[ "BrivLevelingThresholds" ], g_BrivUserSettings[ "BrivLevelingThresholdsCount" ])
-        GuiControlGet, pos, ICScriptHub:Pos, BrivLevelingGroup
+        GuiControlGet, pos, ICScriptHub:Pos, PreferredJumpGroup
         posY := posY + posH + 15
         if(IsObject(IC_BrivGemFarm_Component))
         {

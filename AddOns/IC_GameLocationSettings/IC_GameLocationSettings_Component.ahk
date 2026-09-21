@@ -91,7 +91,7 @@ class IC_GameLocationSettings_Component
     {
         global ICGameLocationPathIsEGS
         Gui, InstallGUI:Submit, NoHide
-        if(ICGameLocationPathIsEGS)
+        if(g_SF.Memory.ReadPlatform() == 21 || ICGameLocationPathIsEGS)
         {
             pPath := "explorer.exe ""com.epicgames.launcher://apps/7e508f543b05465abe3a935960eb70ac%3A48353a502e72433298f25827e03dbff0%3A40cb42e38c0b4a14a1bb133eb3291572?action=launch&silent=true"""
         }

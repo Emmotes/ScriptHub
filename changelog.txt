@@ -1,3 +1,7 @@
+September 21, 2026
+	A new fork of Script Hub specifically with every addon included and a few sensible modifications.
+	This is designed primarily so it's easier for new players to get their script up and running.
+
 May 29, 2026
     Added an option to turn off completing the zone before stacking.
     Updated documentations (mostly settings descriptions).

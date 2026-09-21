@@ -1,0 +1,14 @@
+{
+    "Name": "BrivGemFarm Close Welcome Back",
+    "Version": "v0.1.0",
+    "Includes": "IC_BrivGemFarm_CloseWelcomeBack_Component.ahk",
+    "Author": "Ismo/Pneumatus",
+    "Url": "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_BrivGemFarm_CloseWelcomeBack",
+    "Info": "Closes the Welcome Back screen",
+    "Dependencies": [
+        {
+            "Name": "Briv Gem Farm",
+            "Version": "v1.4.7"
+        }
+    ]
+}

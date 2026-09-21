@@ -6,7 +6,6 @@ class IC_BrivGemFarm_AdvancedSettings_Component
         Gui, ICScriptHub:Submit, NoHide
         g_BrivUserSettings[ "HiddenFarmWindow" ] := OptionSettingCheck_HiddenFarmWindow
         g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ] := OptionSettingCheck_RestoreLastWindowOnGameOpen
-        g_BrivUserSettings[ "ForceOfflineGemThreshold" ] := OptionSettingEdit_ForceOfflineGemThreshold
         g_BrivUserSettings[ "ForceOfflineRunThreshold" ] := OptionSettingEdit_ForceOfflineRunThreshold
         g_BrivUserSettings[ "BrivJumpBuffer" ] := OptionSettingEdit_BrivJumpBuffer
         g_BrivUserSettings[ "DashWaitBuffer" ] := OptionSettingEdit_DashWaitBuffer
@@ -52,12 +51,11 @@ class IC_BrivGemFarm_AdvancedSettings_Component
     AddToolTips() {
         GUIFunctions.AddToolTip( "OptionSettingCheck_HiddenFarmWindow", "Disable the visibility of the second script window")
         GUIFunctions.AddToolTip( "OptionSettingCheck_RestoreLastWindowOnGameOpen", "Whether the script will try to switch focus back to the last active window immediately when the game opens")
-        GUIFunctions.AddToolTip( "OptionSettingCheck_IgnoreBrivHaste", "Ignore haste stacks when deciding to stack. Will force stacking one time each run. Predict Stacks will be turned off")
+        GUIFunctions.AddToolTip( "OptionSettingCheck_IgnoreBrivHaste", "Smart Briv Stack Calculations. Turn off to ignore haste stacks when deciding to stack. Will force stacking once every run.")
         GUIFunctions.AddToolTip( "OptionSettingCheck_FortOnlyRestart", "When running Forced Offline restarts IC will restart instantly rather than farming stacks while offline")
         GUIFunctions.AddToolTip( "OptionSettingCheck_WaitForZoneCompleted", "Complete the zone before online stacking")
         GUIFunctions.AddToolTip( "OptionSettingText_WardenUltThreshold", "Use Warden's ult while stacking when the number of enemies is greater than the threshold")
         GUIFunctions.AddToolTip( "OptionSettingText_FaridehUltThreshold", "Use Farideh's ult while stacking when the number of enemies is greater than the threshold")
-        GUIFunctions.AddToolTip( "OptionSettingText_ForceOfflineGemThreshold", "Stack offline only when this many gems are available for chest purchase (0 = disable)")
         GUIFunctions.AddToolTip( "OptionSettingText_ForceOfflineRunThreshold", "Stack offline once in every N runs as reported by Resets done of current core (0 or 1 = disable)")
         GUIFunctions.AddToolTip( "OptionSettingText_BrivJumpBuffer", "How many areas before a modron reset zone that switching to e formation over q formation is desired.")
         GUIFunctions.AddToolTip( "OptionSettingText_DashWaitBuffer", "The distance from your modron's reset zone where dashwait will stop being activated.")

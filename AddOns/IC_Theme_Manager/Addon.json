@@ -3,7 +3,7 @@
 	"Version": "v0.0.4",
     "Includes" : "IC_Theme_Manager_Includes.ahk",
     "Author" : "Antilectual",
-    "Url" : "https://github.com/antilectual/Idle-Champions/tree/main/AddOns/IC_Theme_Manager",
+    "Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_Theme_Manager",
     "Info" : "Adds the Theme Manager accessible through a button on BrivGemFarm.",
     "Dependencies" : [
         {

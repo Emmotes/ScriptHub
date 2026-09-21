@@ -1,9 +1,9 @@
 {
 	"Name":"About",
-	"Version": "v0.3.5",
+	"Version": "v0.4.0",
     "Includes" : "IC_About_Component.ahk",
     "Author" : "Antilectual & mikebaldi1980",
-    "Url" : "https://github.com/antilectual/Idle-Champions/tree/main/AddOns/IC_About",
+    "Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_About",
     "Info" : "This is an addon that provides an about view",
     "Dependencies" : [
         {

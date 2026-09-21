@@ -24,6 +24,7 @@ Class AddonManagement
     NewerEnabledAddons := {}
     NeedSave := 0
     AddonManagementConfigFile := A_LineFile . "\..\AddonManagement.json"
+	DefaultAddonManagementConfigFile := A_LineFile . "\..\DefaultAddonManagement.json"
     GeneratedAddonIncludeFile := A_LineFile . "\..\..\GeneratedAddonInclude.ahk"
     ShowAddonGUI := False
 
@@ -309,16 +310,20 @@ Class AddonManagement
     {
         forceType := 0
         ; If the file does not exist we should create it with the default settings
+		AddonSettings := ""
         if(!FileExist(this.AddonManagementConfigFile)) 
         {
-            ; Here we used load the Addons that are required on first startup
-            ; startupAddons := []
-            ; startupAddons.Push(Object("Name","IC Core","Version","v.1."))
-            this.EnabledAddons := []
-            forceType := 2
+			if (FileExist(this.DefaultAddonManagementConfigFile))
+			{
+				AddonSettings := g_SF.LoadObjectFromJSON(this.DefaultAddonManagementConfigFile)
+				forceType := 3
+			}
+			else
+				forceType := 2
+			this.EnabledAddons := []
         }
-        ; enable all addons that needed to be added
-        AddonSettings:= g_SF.LoadObjectFromJSON(this.AddonManagementConfigFile)
+		else
+			AddonSettings := g_SF.LoadObjectFromJSON(this.AddonManagementConfigFile)
         this.AddonOrder := AddonSettings["Addon Order"]
         ; Update old settings if needed.
         if(AddonSettings["Enabled Addons"] == "" AND forceType != 2)
@@ -338,7 +343,7 @@ Class AddonManagement
         ; Enable addons
         this.EnabledAddons := IsObject(AddonSettings["Enabled Addons"]) ? AddonSettings["Enabled Addons"] : this.EnabledAddons
         ; Show Addon GUI if no addons loaded
-        if((this.EnabledAddons).Count() <= 0)
+        if(forceType == 3 || (this.EnabledAddons).Count() <= 0)
             this.ShowAddonGUI := True
         if(forceType == 2) ; on first run
         {
@@ -350,14 +355,14 @@ Class AddonManagement
         {
             versionValue := v.Version
             isNewer := this.EnableAddon(v.Name, versionValue)
-            v.version := versionValue
-            if(isNewer)
+			v.Version := versionValue ; versionValue is changed by this.EnableAddon
+            if(isNewer && forceType != 3)
             {
                 this.NewerEnabledAddons.Push(v.Clone())
                 forceType := 1
             }
         }
-        if (!FileExist(this.GeneratedAddonIncludeFile) or forceType == 2)
+        if (!FileExist(this.GeneratedAddonIncludeFile) or forceType >= 2)
             this.GenerateIncludeFile() 
         this.ForceWrite(forceType)
     }
@@ -417,7 +422,7 @@ Class AddonManagement
             MsgBox, % updatedAddonsString
             return
         }
-        if(forceType == 2)
+        if(forceType >= 2)
             this.ForceWriteSettings()
     }
 

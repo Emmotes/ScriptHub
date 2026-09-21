@@ -31,6 +31,13 @@ class IC_About_Component
         Gui, ICScriptHub:Add, GroupBox, x%xyValX% y%xyValY% w425 h%AboutAddonGroupBoxHeight% vAboutAddonGroupBox, % "Enabled Addons: "
         IC_About_Component.AddAddonToggle()
         IC_About_Component.BuildEnabledAddons()
+
+		GuiControlGet, pos, ICScriptHub:Pos, AboutVersionGroupBox
+		posX += posW*0.70
+		posy += 20
+		Gui, ICScriptHub:Add, Button, x%posX% y%posY% vAboutDownloadImportsButton, Download Imports
+		AboutComponentDownload := ObjBindMethod(IC_About_Component, "DownloadImports")
+		GuiControl,ICScriptHub: +g, AboutDownloadImportsButton, % AboutComponentDownload
     }
 
     AddAddonToggle()
@@ -270,7 +277,7 @@ class IC_About_Component
         RegExMatch(currentVersionLine, regex, currentVersion)
         currentVersion := currentVersion1
         this.ServerCaller := new SH_ServerCalls()
-        remoteURL := "https://raw.githubusercontent.com/antilectual/Idle-Champions/refs/heads/main/ICScriptHub.ahk"
+        remoteURL := "https://raw.githubusercontent.com/emmotes/ScriptHub/refs/heads/main/ICScriptHub.ahk"
         remoteScript := this.ServerCaller.BasicServerCall(remoteURL)
         line := StrSplit(remoteScript, "`n", "`r")
         versionLine := line[25]
@@ -284,4 +291,73 @@ class IC_About_Component
             versionString := currentVersionLine
         return versionString
     }
+
+	DownloadImports()
+	{
+        global AboutComponentImportsWarning, AboutComponentGameVersion, g_SF, _MemoryManager, g_ImportsGameVersion64, g_ImportsGameVersionPostFix64, g_ImportsGameVersionPlatform64
+        GuiControl,ICScriptHub:Disable, AboutDownloadImportsButton
+		GuiControl,ICScriptHub:, AboutDownloadImportsButton, Downloading...
+        g_SF.Memory.OpenProcessReader()
+        gameVersionaArch := _MemoryManager.is64bit ? " (64 bit)" : " (32 bit)"
+		vg := g_SF.Memory.ReadGameVersion()
+		vi := g_ImportsGameVersion64 . g_ImportsGameVersionPostFix64
+		pi := g_ImportsGameVersionPlatform64 != "" ? g_ImportsGameVersionPlatform64 : ""
+		pg := g_SF.Memory.ReadPlatform()
+		if pg is number
+			pg := pg == 21 ? "EGS" : "Steam"
+		else if(InStr(g_UserSettings[ "InstallPath" ], "IdleDragons.exe"))
+			pg := "Steam"
+		else
+			pg := "EGS"
+		if (vg == vi && pg == pi)
+		{
+			MsgBox, % "You already have the correct imports for your game."
+			GuiControl,ICScriptHub:Hide, AboutDownloadImportsButton
+			return
+		}
+		this.DownloadImportsZIP(pg)
+		GuiControl,ICScriptHub:, AboutDownloadImportsButton, Download Imports
+        GuiControl,ICScriptHub:Enable, AboutDownloadImportsButton
+	}
+
+	DownloadImportsZIP(importType)
+	{
+		zipUrl := "https://github.com/Emmotes/ic_scripting_imports/raw/refs/heads/main/ZIPS/Latest_" importType ".zip"
+		zipFile := A_LineFile "\..\imports.zip"
+		extractDir := A_LineFile "\..\..\IC_Core\MemoryRead\"
+
+		; Download
+		UrlDownloadToFile, %zipUrl%, %zipFile%
+
+		if ErrorLevel
+		{
+			MsgBox, 0x30, Invalid Data, % "Couldn't download the latest " importType " imports.`n`nYou may need to get them manually."
+			return
+		}
+
+		; Create the directory if missing
+		if !InStr(FileExist(offsetDirectory), "D")
+			FileCreateDir, %offsetDirectory%
+
+		; Escape single quotes for PowerShell
+		psZip := StrReplace(zipFile, "'", "''")
+		psDir := StrReplace(extractDir, "'", "''")
+		command := "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command "
+         . """try { Expand-Archive -LiteralPath '" psZip "' -DestinationPath '" psDir "' -Force; exit 0 } "
+         . "catch { Write-Error $_; exit 1 }"""
+
+		RunWait, %command%,, Hide
+
+		if ErrorLevel
+		{
+			MsgBox, 0x30, Invalid Data, % "Couldn't extract the " importType " imports data.`n`nYou may need to get them manually."
+			FileDelete, %zipFile%
+			return
+		}
+
+		FileDelete, %zipFile%
+
+		MsgBox, 0x20, Success, % "Successfully downloaded the " importType " imports. Script Hub will now restart."
+		Reload
+	}
 }

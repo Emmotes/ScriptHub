@@ -25,13 +25,13 @@ ReloadBrivGemFarmSettings(loadFromFile := True)
     if (g_BrivUserSettings[ "TargetStacks" ] == "")
         g_BrivUserSettings[ "TargetStacks" ] := 0
     if ( g_BrivUserSettings[ "RestartStackTime" ] == "" )
-        g_BrivUserSettings[ "RestartStackTime" ] := 12000
+        g_BrivUserSettings[ "RestartStackTime" ] := 6000
     if ( g_BrivUserSettings[ "BuyChests" ] == "" )
         g_BrivUserSettings[ "BuyChests" ] := 1
     if ( g_BrivUserSettings[ "OpenChests" ] == "" )
         g_BrivUserSettings[ "OpenChests" ] := 1
     if ( g_BrivUserSettings[ "MinGemCount" ] == "" )
-        g_BrivUserSettings[ "MinGemCount" ] := 0
+        g_BrivUserSettings[ "MinGemCount" ] := 50000
     if ( g_BrivUserSettings[ "BuyGoldChestRatio" ] == "" )
         g_BrivUserSettings[ "BuyGoldChestRatio" ] := 1
     if ( g_BrivUserSettings[ "BuySilverChestRatio" ] == "" )
@@ -55,13 +55,11 @@ ReloadBrivGemFarmSettings(loadFromFile := True)
     if ( g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ] == "" )
         g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ] := True
     if (g_BrivUserSettings[ "IgnoreBrivHaste" ] == "" )
-        g_BrivUserSettings[ "IgnoreBrivHaste" ] := 0  
+        g_BrivUserSettings[ "IgnoreBrivHaste" ] := 1
     if ( g_BrivUserSettings[ "FortOnlyRestart" ] == "" )
         g_BrivUserSettings[ "FortOnlyRestart" ] := False
     if ( g_BrivUserSettings[ "WaitForZoneCompleted" ] == "" )
         g_BrivUserSettings[ "WaitForZoneCompleted" ] := True
-    if ( g_BrivUserSettings[ "ForceOfflineGemThreshold" ] == "" )
-        g_BrivUserSettings[ "ForceOfflineGemThreshold" ] := 0
     if ( g_BrivUserSettings[ "ForceOfflineRunThreshold" ] == "" )
         g_BrivUserSettings[ "ForceOfflineRunThreshold" ] := 0
     if ( g_BrivUserSettings[ "BrivJumpBuffer" ] == "" )

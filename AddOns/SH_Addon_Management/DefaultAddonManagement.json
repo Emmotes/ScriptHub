@@ -1,0 +1,126 @@
+{
+	"Addon Order":[
+		{
+			"Name":"IC Core"
+		},
+		{
+			"Name":"Briv Gem Farm"
+		},
+		{
+			"Name":"Game Location Settings"
+		},
+		{
+			"Name":"Theme Manager"
+		},
+		{
+			"Name":"BrivGemFarm HideDefaultProfile"
+		},
+		{
+			"Name":"BrivGemFarm Close Welcome Back"
+		},
+		{
+			"Name":"BrivGemFarm Advanced Settings"
+		},
+		{
+			"Name":"AdvancedSettings Preset Routes"
+		},
+		{
+			"Name":"Briv Gem Farm Stats"
+		},
+		{
+			"Name":"About"
+		},
+		{
+			"Name":"BrivGemFarm LevelUp"
+		},
+		{
+			"Name":"BrivGemFarm Briv Feat Swap"
+		},
+		{
+			"Name":"RNG Waiting Room"
+		},
+		{
+			"Name":"Game Settings Fix"
+		},
+		{
+			"Name":"Claim Daily Platinum"
+		},
+		{
+			"Name":"EGS Overlay Swatter"
+		},
+		{
+			"Name":"Oi! IC! Close NOW! I'm Warning You!"
+		},
+		{
+			"Name":"BrivGemFarm Stack and Stop"
+		},
+		{
+			"Name":"Cazrin Books Farmer"
+		},
+		{
+			"Name":"DM Fishing Minigame"
+		},
+		{
+			"Name":"No Modron Adventuring"
+		},
+		{
+			"Name":"Process Affinity"
+		},
+		{
+			"Name":"NERDs Shake the Box"
+		},
+		{
+			"Name":"Memory Functions Full Read"
+		},
+		{
+			"Name":"Memory Functions Testing (Continuous)"
+		},
+		{
+			"Name":"Example of an Addon (NOT FOR USE!)"
+		}
+	],
+	"Enabled Addons":[
+		{
+			"Name":"IC Core"
+		},
+		{
+			"Name":"Briv Gem Farm"
+		},
+		{
+			"Name":"Game Location Settings"
+		},
+		{
+			"Name":"Theme Manager"
+		},
+		{
+			"Name":"BrivGemFarm Close Welcome Back"
+		},
+		{
+			"Name":"BrivGemFarm Advanced Settings"
+		},
+		{
+			"Name":"AdvancedSettings Preset Routes"
+		},
+		{
+			"Name":"Briv Gem Farm Stats"
+		},
+		{
+			"Name":"About"
+		},
+		{
+			"Name":"BrivGemFarm LevelUp"
+		},
+		{
+			"Name":"RNG Waiting Room"
+		},
+		{
+			"Name":"Game Settings Fix"
+		},
+		{
+			"Name":"Claim Daily Platinum"
+		},
+		{
+			"Name":"Oi! IC! Close NOW! I'm Warning You!"
+		}
+	]
+}

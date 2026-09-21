@@ -5,8 +5,6 @@ this.BrivUnnaturalHasteHandler.areasSkipped := New GameObjectStructure(this.Briv
 this.BrivUnnaturalHasteHandler.areaSkipChance := New GameObjectStructure(this.BrivUnnaturalHasteHandler,"Float", [0x98])
 this.BrivUnnaturalHasteHandler.areaSkipAmount := New GameObjectStructure(this.BrivUnnaturalHasteHandler,"Int", [0x9c])
 this.BrivUnnaturalHasteHandler.alwaysSkipOneLess := New GameObjectStructure(this.BrivUnnaturalHasteHandler,"Char", [0xa0])
-this.BrivUnnaturalHasteHandler.brivOffKey := New GameObjectStructure(this.BrivUnnaturalHasteHandler,"Int", [0x58])
-this.BrivUnnaturalHasteHandler.brivOnKey := New GameObjectStructure(this.BrivUnnaturalHasteHandler,"Int", [0x68])
 
 if (!IsObject(IC_ActiveEffectKeyHandler_Class.NewHandlerObject))
 	MsgBox % "Please update importer and/or imports to match this script."

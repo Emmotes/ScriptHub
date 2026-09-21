@@ -23,11 +23,8 @@ This setting will tell the script to try and switch back from the game window to
 ## "IgnoreBrivHaste"
 This setting will make the script not take into account any haste settings on Briv when deciding how many stacks to farm. It is shown in the GUI as "Predict Stacks Off? (IgnoreBrivHaste)".
 
-## "ForceOfflineGemThreshold"
-The gem farm script is designed to restart the game periodically to build stacks for Briv and keep game performance optimal. This setting enables "hybrid stacking", letting you postpone the offline stack restart until the number of gems earned reaches the threshold configured here (0 = disable).
-
 ## "ForceOfflineRunThreshold"
-Similar to `ForceOfflineGemThreshold`, but triggers the offline stack restart once every N Modron resets (runs) reaches the set value (0 or 1 = disable). If both run and gem thresholds are set, either reaching its threshold will trigger the stack restart.
+This setting enables "hybrid stacking", letting you postpone the offline stack restart until the number Modron resets (runs) reaches the set value (0 or 1 = disable).
 
 ## "FortOnlyRestart"
 Known in the GUI as "No Stack FORTs". When running Forced Offline restarts, Idle Champions will restart instantly rather than farming stacks while offline.
