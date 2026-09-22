@@ -9,7 +9,7 @@ GUIFunctions.AddTab("BrivGF Advanced")
 ; Select the tab you created above
 Gui, ICScriptHub:Tab, BrivGF Advanced
 
-;g_BrivUserSettings[ "IgnoreBrivHaste" ]
+;g_BrivUserSettings[ "PredictStacks" ]
 ;g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
 ;g_BrivUserSettings[ "BrivJumpBuffer" ]
 ;g_BrivUserSettings[ "DashWaitBuffer" ]
@@ -29,7 +29,7 @@ Class IC_BrivGemFarm_AdvancedSettings_GUI
         GuiControlGet, ws, ICScriptHub:Pos, WindowSettingsGroup
         Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_HiddenFarmWindow xs+10 ys+20, Hide Gem Farm Window
         Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_RestoreLastWindowOnGameOpen xs+10 y+5, Restore Last Window On Game Open
-        Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_IgnoreBrivHaste xs+10 y+5, Predict Stacks
+        Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_PredictStacks xs+10 y+5, Predict Stacks
         Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_FortOnlyRestart xs+10 y+5, No Stack FORTs
         Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_WaitForZoneCompleted xs+10 y+5, Complete Zone Before Stacking
 

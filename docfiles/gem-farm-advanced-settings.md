@@ -20,8 +20,8 @@ This can be enabled or disabled. When Enabled IC Script Hub will hide the window
 
 This setting will tell the script to try and switch back from the game window to whatever window was open before the game window opened after a stack restart. 
 
-## "IgnoreBrivHaste"
-This setting will make the script not take into account any haste settings on Briv when deciding how many stacks to farm. It is shown in the GUI as "Predict Stacks Off? (IgnoreBrivHaste)".
+## "PredictStacks"
+When this setting is off it will make the script not take into account any haste stacks on Briv when deciding how many stacks to farm. It is shown in the GUI as "Predict Stacks".
 
 ## "ForceOfflineRunThreshold"
 This setting enables "hybrid stacking", letting you postpone the offline stack restart until the number Modron resets (runs) reaches the set value (0 or 1 = disable).

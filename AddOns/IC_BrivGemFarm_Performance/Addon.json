@@ -1,6 +1,6 @@
 {
 	"Name":"Briv Gem Farm",
-	"Version": "v1.7.4",
+	"Version": "v1.7.5",
     "Includes" : "IC_BrivGemFarm_Component.ahk",
     "Author" : "Antilectual & mikebaldi1980",
     "Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_BrivGemFarm_Performance",

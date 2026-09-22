@@ -54,8 +54,8 @@ ReloadBrivGemFarmSettings(loadFromFile := True)
         g_BrivUserSettings[ "HiddenFarmWindow" ] := 0
     if ( g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ] == "" )
         g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ] := True
-    if (g_BrivUserSettings[ "IgnoreBrivHaste" ] == "" )
-        g_BrivUserSettings[ "IgnoreBrivHaste" ] := 1
+    if (g_BrivUserSettings[ "PredictStacks" ] == "" )
+        g_BrivUserSettings[ "PredictStacks" ] := 1
     if ( g_BrivUserSettings[ "FortOnlyRestart" ] == "" )
         g_BrivUserSettings[ "FortOnlyRestart" ] := False
     if ( g_BrivUserSettings[ "WaitForZoneCompleted" ] == "" )

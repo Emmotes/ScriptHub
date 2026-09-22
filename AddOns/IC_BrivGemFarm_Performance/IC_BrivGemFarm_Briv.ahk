@@ -330,7 +330,7 @@ class BrivFunctions
 
     PredictStacksActive()
     {
-        return !g_BrivUserSettings[ "IgnoreBrivHaste" ]
+        return g_BrivUserSettings[ "PredictStacks" ]
     }
 
     FindActualBrivMinLevelingZone(brivMinlevelArea := 1, brivLevelingZones := "")

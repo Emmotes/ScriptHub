@@ -55,8 +55,8 @@ Hides the secondary command window launched by the script for farming when set t
 * **RestoreLastWindowOnGameOpen**: `0` / `1` (Default: `1`)  
 When enabled, the script attempts to return focus to the last active window on your computer immediately after launching the game.
 
-* **IgnoreBrivHaste**: `0` / `1` (Default: `0`)  
-Known in the GUI as "Predict Stacks Off? (IgnoreBrivHaste)". When set to 1, ignores Briv's haste stacks when predicting/deciding when to stack, forcing offline stacking once per run.
+* **PredictStacks**: `0` / `1` (Default: `0`)  
+Known in the GUI as "Predict Stacks". When set to 0, ignores Briv's haste stacks when predicting/deciding when to stack, forcing offline stacking once per run.
 
 * **FortOnlyRestart**: `0` / `1` (Default: `0`)  
 Known in the GUI as "No Stack FORTs". When running Forced Offline restarts, the game will restart instantly rather than farming stacks while offline.

@@ -16,3 +16,10 @@ AddOns/*_Addon_Management/AddonManagement.json
 LastGUID*.json
 Current*.json
 SharedFunctions/ScanCodesOverride.json
+AddOns/IC_BrivGemFarm_LevelUp/Data/Loader/LastTableChecksums.txt
+AddOns/IC_BrivGemFarm_LevelUp/Data/HeroDefines.json
+AddOns/IC_BrivGemFarm_LevelUp/Data/Loader/LastTableChecksums.txt 
+AddOns/IC_BrivGemFarm_LevelUp/Data/Loader/LastGUID_BrivGemFarm_LevelUp.json
+AddOns/IC_NoModronAdventuring/HeroDefines.JSON
+AddOns/IC_NoModronAdventuring/MaxLvl.JSON
+AddOns/IC_GameSettingsFix/profiles/

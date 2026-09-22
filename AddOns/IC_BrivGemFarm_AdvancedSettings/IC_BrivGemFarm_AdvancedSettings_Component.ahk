@@ -11,7 +11,7 @@ class IC_BrivGemFarm_AdvancedSettings_Component
         g_BrivUserSettings[ "DashWaitBuffer" ] := OptionSettingEdit_DashWaitBuffer
         g_BrivUserSettings[ "WindowXPosition" ] := OptionSettingEdit_WindowXPosition
         g_BrivUserSettings[ "WindowYPosition" ] := OptionSettingEdit_WindowYPosition
-        g_BrivUserSettings[ "IgnoreBrivHaste" ] := OptionSettingCheck_IgnoreBrivHaste
+        g_BrivUserSettings[ "PredictStacks" ] := OptionSettingCheck_PredictStacks
         g_BrivUserSettings[ "FortOnlyRestart" ] := OptionSettingCheck_FortOnlyRestart
         g_BrivUserSettings[ "WaitForZoneCompleted" ] := OptionSettingCheck_WaitForZoneCompleted
         g_BrivUserSettings[ "WardenUltThreshold" ] := OptionSettingEdit_WardenUltThreshold
@@ -32,7 +32,7 @@ class IC_BrivGemFarm_AdvancedSettings_Component
         {
             GuiControl, ICScriptHub:, OptionSettingCheck_HiddenFarmWindow, % g_BrivUserSettings[ "HiddenFarmWindow" ]
             GuiControl, ICScriptHub:, OptionSettingCheck_RestoreLastWindowOnGameOpen, % g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ]
-            GuiControl, ICScriptHub:, OptionSettingCheck_IgnoreBrivHaste, % g_BrivUserSettings[ "IgnoreBrivHaste" ]
+            GuiControl, ICScriptHub:, OptionSettingCheck_PredictStacks, % g_BrivUserSettings[ "PredictStacks" ]
             GuiControl, ICScriptHub:, OptionSettingCheck_FortOnlyRestart, % g_BrivUserSettings[ "FortOnlyRestart" ]
             GuiControl, ICScriptHub:, OptionSettingCheck_WaitForZoneCompleted, % g_BrivUserSettings[ "WaitForZoneCompleted" ]
             GuiControl, ICScriptHub:, OptionSettingEdit_ForceOfflineRunThreshold, % g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
@@ -51,7 +51,7 @@ class IC_BrivGemFarm_AdvancedSettings_Component
     AddToolTips() {
         GUIFunctions.AddToolTip( "OptionSettingCheck_HiddenFarmWindow", "Disable the visibility of the second script window")
         GUIFunctions.AddToolTip( "OptionSettingCheck_RestoreLastWindowOnGameOpen", "Whether the script will try to switch focus back to the last active window immediately when the game opens")
-        GUIFunctions.AddToolTip( "OptionSettingCheck_IgnoreBrivHaste", "Smart Briv Stack Calculations. Turn off to ignore haste stacks when deciding to stack. Will force stacking once every run.")
+        GUIFunctions.AddToolTip( "OptionSettingCheck_PredictStacks", "Smart Briv Stack Calculations. Turn off to ignore haste stacks when deciding to stack. Will force stacking once every run.")
         GUIFunctions.AddToolTip( "OptionSettingCheck_FortOnlyRestart", "When running Forced Offline restarts IC will restart instantly rather than farming stacks while offline")
         GUIFunctions.AddToolTip( "OptionSettingCheck_WaitForZoneCompleted", "Complete the zone before online stacking")
         GUIFunctions.AddToolTip( "OptionSettingText_WardenUltThreshold", "Use Warden's ult while stacking when the number of enemies is greater than the threshold")
