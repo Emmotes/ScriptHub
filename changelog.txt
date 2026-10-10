@@ -1,5 +1,6 @@
-October 10, 2026
+October 10, 2026October 10, 2026
 	Removed BrivJumpBuffer.
+	Fixing a RCtrl keypress issue by changing it to LCtrl.
 
 September 22, 2026
 	I forgot to reverse the check for PredictStacks when I renamed and flipped it from IgnoreBrivHaste.

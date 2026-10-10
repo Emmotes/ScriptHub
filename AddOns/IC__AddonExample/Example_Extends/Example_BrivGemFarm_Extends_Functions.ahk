@@ -34,8 +34,8 @@ class IC_Example_SharedFunctions_Class extends IC_BrivSharedFunctions_Class
         else
         {
             ; ctrl level clickers
-            this.DirectedInput(,release := 0, ["{RCtrl}","{ClickDmg}"]*) ;keysdown
-            this.DirectedInput(hold := 0,, ["{ClickDmg}","{RCtrl}"]*) ;keysup
+            this.DirectedInput(,release := 0, ["{LCtrl}","{ClickDmg}"]*) ;keysdown
+            this.DirectedInput(hold := 0,, ["{ClickDmg}","{LCtrl}"]*) ;keysup
         }
         this.DirectedInput(hold := 0,, spam*) ;keysup
         this.DirectedInput(,release := 0, spam*) ;keysdown

@@ -1,3 +1,6 @@
+October 10, 2026
+	- Fixing a RCtrl keypress issue by changing it to LCtrl.
+
 September 21, 2026
 	- Changing some default values to more sensible ones.
 	- Culling the `Avoid Briv+Thellora jumping into a boss zone` setting.

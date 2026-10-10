@@ -762,8 +762,8 @@ class IC_BrivGemFarm_Class
         if(g_UserSettings[ "NoCtrlKeypress" ])
             this.DirectedInput(,,this.ClickSpam)
         else { ; ctrl level clickers
-            this.DirectedInput(,release := 0, ["{RCtrl}",this.ClickSpam]*) ;keysdown
-            this.DirectedInput(hold := 0,, [this.ClickSpam,"{RCtrl}"]*) ;keysup
+            this.DirectedInput(,release := 0, ["{LCtrl}",this.ClickSpam]*) ;keysdown
+            this.DirectedInput(hold := 0,, [this.ClickSpam,"{LCtrl}"]*) ;keysup
         }
     }
 
