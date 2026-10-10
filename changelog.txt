@@ -1,3 +1,6 @@
+October 10, 2026
+	Removed BrivJumpBuffer.
+
 September 22, 2026
 	I forgot to reverse the check for PredictStacks when I renamed and flipped it from IgnoreBrivHaste.
 

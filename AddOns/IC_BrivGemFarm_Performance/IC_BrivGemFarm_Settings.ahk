@@ -62,8 +62,6 @@ ReloadBrivGemFarmSettings(loadFromFile := True)
         g_BrivUserSettings[ "WaitForZoneCompleted" ] := True
     if ( g_BrivUserSettings[ "ForceOfflineRunThreshold" ] == "" )
         g_BrivUserSettings[ "ForceOfflineRunThreshold" ] := 0
-    if ( g_BrivUserSettings[ "BrivJumpBuffer" ] == "" )
-        g_BrivUserSettings[ "BrivJumpBuffer" ] := 0
     if (g_BrivUserSettings[ "DashWaitBuffer" ] == "")    
         g_BrivUserSettings[ "DashWaitBuffer" ] := 30
     if ( g_BrivUserSettings[ "WindowXPosition" ] == "" )

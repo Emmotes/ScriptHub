@@ -141,7 +141,7 @@ class IC_BrivGemFarm_Class
         g_SF.ResetServerCall()
         this.LastStackSuccessArea := g_BrivUserSettings [ "StackZone" ]
         this.StackFailAreasThisRunTally := {}
-        g_SF.GameStartFormation := g_BrivUserSettings[ "BrivJumpBuffer" ] > 0 ? 3 : 1
+        g_SF.GameStartFormation := 1
         g_SaveHelper.Init() ; slow call, loads briv dictionary (3+s)
         if (this.PreFlightCheck(includeBrivFormation3) == -1) ; Did not pass pre flight check.
             return -1

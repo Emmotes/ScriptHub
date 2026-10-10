@@ -7,7 +7,6 @@ class IC_BrivGemFarm_AdvancedSettings_Component
         g_BrivUserSettings[ "HiddenFarmWindow" ] := OptionSettingCheck_HiddenFarmWindow
         g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ] := OptionSettingCheck_RestoreLastWindowOnGameOpen
         g_BrivUserSettings[ "ForceOfflineRunThreshold" ] := OptionSettingEdit_ForceOfflineRunThreshold
-        g_BrivUserSettings[ "BrivJumpBuffer" ] := OptionSettingEdit_BrivJumpBuffer
         g_BrivUserSettings[ "DashWaitBuffer" ] := OptionSettingEdit_DashWaitBuffer
         g_BrivUserSettings[ "WindowXPosition" ] := OptionSettingEdit_WindowXPosition
         g_BrivUserSettings[ "WindowYPosition" ] := OptionSettingEdit_WindowYPosition
@@ -36,7 +35,6 @@ class IC_BrivGemFarm_AdvancedSettings_Component
             GuiControl, ICScriptHub:, OptionSettingCheck_FortOnlyRestart, % g_BrivUserSettings[ "FortOnlyRestart" ]
             GuiControl, ICScriptHub:, OptionSettingCheck_WaitForZoneCompleted, % g_BrivUserSettings[ "WaitForZoneCompleted" ]
             GuiControl, ICScriptHub:, OptionSettingEdit_ForceOfflineRunThreshold, % g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
-            GuiControl, ICScriptHub:, OptionSettingEdit_BrivJumpBuffer, % g_BrivUserSettings[ "BrivJumpBuffer" ]
             GuiControl, ICScriptHub:, OptionSettingEdit_DashWaitBuffer, % g_BrivUserSettings[ "DashWaitBuffer" ]
             GuiControl, ICScriptHub:, OptionSettingEdit_WindowXPosition, % g_BrivUserSettings[ "WindowXPosition" ]
             GuiControl, ICScriptHub:, OptionSettingEdit_WindowYPosition, % g_BrivUserSettings[ "WindowYPosition" ]
@@ -57,7 +55,6 @@ class IC_BrivGemFarm_AdvancedSettings_Component
         GUIFunctions.AddToolTip( "OptionSettingText_WardenUltThreshold", "Use Warden's ult while stacking when the number of enemies is greater than the threshold")
         GUIFunctions.AddToolTip( "OptionSettingText_FaridehUltThreshold", "Use Farideh's ult while stacking when the number of enemies is greater than the threshold")
         GUIFunctions.AddToolTip( "OptionSettingText_ForceOfflineRunThreshold", "Stack offline once in every N runs as reported by Resets done of current core (0 or 1 = disable)")
-        GUIFunctions.AddToolTip( "OptionSettingText_BrivJumpBuffer", "How many areas before a modron reset zone that switching to e formation over q formation is desired.")
         GUIFunctions.AddToolTip( "OptionSettingText_DashWaitBuffer", "The distance from your modron's reset zone where dashwait will stop being activated.")
         GUIFunctions.AddToolTip( "OptionSettingText_WindowXPosition", "Where the gem farm script will appear horizontally across your screen")
         GUIFunctions.AddToolTip( "OptionSettingText_WindowYPosition", "Where the gem farm script will appear vertically on your screen")            

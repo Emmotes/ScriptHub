@@ -560,13 +560,6 @@ class IC_SharedFunctions_Class extends SH_SharedFunctions
         ;bench briv not in a preferred briv jump zone
         if (settings["PreferredBrivJumpZones"][Mod( this.Memory.ReadCurrentZone(), 50) == 0 ? 50 : Mod( this.Memory.ReadCurrentZone(), 50) ] == 0)
             return true
-        ;perform no other checks if 'Briv Jump Buffer' setting is disabled
-        if !(settings[ "BrivJumpBuffer" ])
-            return false
-        ;bench briv if within the 'Briv Jump Buffer'-supposedly this reduces chances of failed conversions by having briv on bench during modron reset.
-        maxSwapArea := this.ModronResetZone - settings[ "BrivJumpBuffer" ]
-        if (this.Memory.ReadCurrentZone() >= maxSwapArea)
-            return true
         return false
     }
 
@@ -576,17 +569,9 @@ class IC_SharedFunctions_Class extends SH_SharedFunctions
         ;do not unbench briv if party is not on a perferred briv jump zone.
         if (settings["PreferredBrivJumpZones"][Mod( this.Memory.ReadCurrentZone(), 50) == 0 ? 50 :  Mod(this.Memory.ReadCurrentZone(), 50)] == 0)
             return false
-        ;unbench briv if 'Briv Jump Buffer' setting is disabled and transition direction is "OnFromLeft"
-        if (!(settings[ "BrivJumpBuffer" ]) AND this.Memory.ReadFormationTransitionDir() == 0)
+        ;unbench briv if transition direction is "OnFromLeft"
+        if (this.Memory.ReadFormationTransitionDir() == 0)
             return true
-        ;perform no other checks if 'Briv Jump Buffer' setting is disabled
-        else if !(settings[ "BrivJumpBuffer" ])
-            return false
-        ;keep briv benched if within the 'Briv Jump Buffer'-supposedly this reduces chances of failed conversions by having briv on bench during modron reset.
-        maxSwapArea := this.ModronResetZone - settings[ "BrivJumpBuffer" ]
-        if (this.Memory.ReadCurrentZone() >= maxSwapArea)
-            return false
-        ;unbench briv if outside the 'Briv Jump Buffer' and a jump animation override isn't added to the list
         ; else if (this.Memory.ReadTransitionOverrideSize() != 1)
         ;     return true
         return false

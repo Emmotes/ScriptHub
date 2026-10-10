@@ -11,7 +11,6 @@ Gui, ICScriptHub:Tab, BrivGF Advanced
 
 ;g_BrivUserSettings[ "PredictStacks" ]
 ;g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
-;g_BrivUserSettings[ "BrivJumpBuffer" ]
 ;g_BrivUserSettings[ "DashWaitBuffer" ]
 ;g_BrivUserSettings[ "HiddenFarmWindow" ]
 ;g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ]
@@ -50,11 +49,6 @@ Class IC_BrivGemFarm_AdvancedSettings_GUI
         Gui, ICScriptHub:Add, Edit, vOptionSettingEdit_ForceOfflineRunThreshold x245 ys+20 w50, % g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
         GUIFunctions.UseThemeTextColor()
         Gui, ICScriptHub:Add, Text, vOptionSettingText_ForceOfflineRunThreshold x+5 yp hp 0x200, ForceOfflineRunThreshold
-
-        GUIFunctions.UseThemeTextColor("InputBoxTextColor")
-        Gui, ICScriptHub:Add, Edit, vOptionSettingEdit_BrivJumpBuffer x245 y+5 w50, % g_BrivUserSettings[ "BrivJumpBuffer" ]
-        GUIFunctions.UseThemeTextColor()
-        Gui, ICScriptHub:Add, Text, vOptionSettingText_BrivJumpBuffer x+5 yp hp 0x200, BrivJumpBuffer
 
         GUIFunctions.UseThemeTextColor("InputBoxTextColor")
         Gui, ICScriptHub:Add, Edit, vOptionSettingEdit_DashWaitBuffer x245 y+5 w50, % g_BrivUserSettings[ "DashWaitBuffer" ]

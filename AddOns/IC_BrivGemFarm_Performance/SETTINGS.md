@@ -67,9 +67,6 @@ Known in the GUI as "Complete Zone Before Stacking". When checked, the script co
 * **ForceOfflineRunThreshold**: `<integer>` (Default: `0`)  
 Activates "hybrid stacking" (HTS). Forces the script to perform an offline stack restart once the number of runs based on "Resets Done" as reported by the current Modron core. An offline stack restart is forced every N runs (0 or 1 = disable).
 
-* **BrivJumpBuffer**: `<integer>` (Default: `0`)  
-The number of areas before the Modron reset zone where the script will switch from the 'q' (jump) formation to the 'e' (non-jump) formation to ensure stacks convert properly.
-
 * **DashWaitBuffer**: `<integer>` (Default: `30`)  
 The distance from your Modron's reset zone where dashwait will stop being activated.
 

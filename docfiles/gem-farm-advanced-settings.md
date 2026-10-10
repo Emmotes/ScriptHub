@@ -38,11 +38,6 @@ Use Warden's or Farideh's ultimates while stacking when the number of enemies ex
 ## "Briv Leveling by Zone"
 Allows configuring specific zone levels where Briv should be leveled. You can configure the number of leveling zones (up to 15) and specify the Zone and corresponding Level (Lvl) for each threshold.
 
-
-## "BrivJumpBuffer"
-
-Occasionally, depending on game build, there can be issues with how the game handles Modron Resets if Briv jumps over the reset zone. This setting is how far before the modron's reset zone Briv will no longer be allowed in the party.
-
 ## "DashWaitBuffer"
 
 This is how far before the modron's reset zone the script will no longer attempt to wait for Shandie's Dash to activate. This allows you to effectively disable dash waiting after a stack restart. For more fine tuned control of dash wait, try the ``Shandie Dash Wait after Stacking`` link found on the [Addons page](../Addons.md).
