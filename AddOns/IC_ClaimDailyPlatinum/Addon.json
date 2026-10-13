@@ -3,7 +3,7 @@
 	"Version": "v0.5.10",
 	"Includes" : "IC_ClaimDailyPlatinum_Includes.ahk",
 	"Author" : "Emmote",
-	"Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_Addons/IC_ClaimDailyPlatinum",
+	"Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_ClaimDailyPlatinum",
 	"Info" : "An add on that will claim your daily platinum automagically so you don't have to.",
 	"Dependencies" : [
 		{

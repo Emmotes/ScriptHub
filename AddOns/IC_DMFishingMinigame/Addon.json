@@ -3,7 +3,7 @@
 	"Version": "v0.2.2",
 	"Includes" : "IC_DMFishingMinigame_Includes.ahk",
 	"Author" : "Emmote",
-	"Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_Addons/IC_DMFishingMinigame",
+	"Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_DMFishingMinigame",
 	"Info" : "An addon that will retry an adventure until DM picks the Guest Star seat that you want.",
 	"Dependencies" : [
 		{

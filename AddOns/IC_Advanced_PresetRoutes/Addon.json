@@ -3,7 +3,7 @@
 	"Version": "v0.0.2",
 	"Includes" : "IC_Advanced_PresetRoutes_Component.ahk",
 	"Author" : "Emmote",
-	"Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_Addons/IC_Advanced_PresetRoutes",
+	"Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_Advanced_PresetRoutes",
 	"Info" : "An add on that adds a way to quickly set up the Preferred Briv Jump Zones in the BrivGF Advanced addon.",
 	"Dependencies" : [
 		{

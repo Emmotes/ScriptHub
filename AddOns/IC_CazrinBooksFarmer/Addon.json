@@ -3,7 +3,7 @@
 	"Version": "v0.0.2",
 	"Includes" : "IC_CazrinBooksFarmer_Includes.ahk",
 	"Author" : "Emmote",
-	"Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_Addons/IC_CazrinBooksFarmer",
+	"Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_CazrinBooksFarmer",
 	"Info" : "An addon that will farm Cazrin's Library of Lore books by excessively spamming specialisation potions to keep resetting max books from 1500 to 500 and back again.",
 	"Dependencies" : [
 		{

@@ -342,6 +342,7 @@ Class AddonManagement
         this.OrderAddons(this.AddonOrder)
         ; Enable addons
         this.EnabledAddons := IsObject(AddonSettings["Enabled Addons"]) ? AddonSettings["Enabled Addons"] : this.EnabledAddons
+        addonUrlsChanged := false
         ; Show Addon GUI if no addons loaded
         if(forceType == 3 || (this.EnabledAddons).Count() <= 0)
             this.ShowAddonGUI := True
@@ -355,7 +356,13 @@ Class AddonManagement
         {
             versionValue := v.Version
             isNewer := this.EnableAddon(v.Name, versionValue)
-			v.Version := versionValue ; versionValue is changed by this.EnableAddon
+            v.Version := versionValue ; versionValue is changed by this.EnableAddon
+            currAddon := this.GetAddon(v.Name, versionValue, indexOfAddon)
+            if(IsObject(currAddon) AND v.Url != currAddon.Url)
+            {
+                v.Url := currAddon.Url
+                addonUrlsChanged := true
+            }
             if(isNewer && forceType != 3)
             {
                 this.NewerEnabledAddons.Push(v.Clone())
@@ -364,7 +371,7 @@ Class AddonManagement
         }
         if (!FileExist(this.GeneratedAddonIncludeFile) or forceType >= 2)
             this.GenerateIncludeFile() 
-        this.ForceWrite(forceType)
+        this.ForceWrite(forceType, addonUrlsChanged)
     }
 
     SortAddonsByDependency()
@@ -409,7 +416,7 @@ Class AddonManagement
         return false
     }
 
-    ForceWrite(forceType)
+    ForceWrite(forceType, settingsChanged := false)
     {
         if(forceType == 1 AND this.NewerEnabledAddons.Length() > 0)
         {
@@ -422,7 +429,7 @@ Class AddonManagement
             MsgBox, % updatedAddonsString
             return
         }
-        if(forceType >= 2)
+        if(forceType >= 2 OR settingsChanged)
             this.ForceWriteSettings()
     }
 
