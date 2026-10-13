@@ -1,4 +1,4 @@
-#include *i %A_LineFile%\..\..\IC_BrivGemFarm_LevelUp_Extra\IC_BrivGemFarm_LevelUp_Functions.ahk
+#include *i %A_LineFile%\..\..\IC_BrivGemFarm_LevelUp\IC_BrivGemFarm_LevelUp_Functions.ahk
 
 ; Functions that allow Q/E swaps with Briv in E formation
 class IC_BrivGemFarm_BrivFeatSwap_Functions
@@ -30,7 +30,7 @@ class IC_BrivGemFarm_BrivFeatSwap_Functions
                     return true
         if (FileExist(AddOnsIncludedConfigFile)) ; Try in the AddOnsIncluded file
             Loop, Read, %AddOnsIncludedConfigFile%
-                if InStr(A_LoopReadLine, "#include *i %A_LineFile%\..\IC_BrivGemFarm_LevelUp_Extra\IC_BrivGemFarm_LevelUp_Component.ahk")
+                if InStr(A_LoopReadLine, "#include *i %A_LineFile%\..\IC_BrivGemFarm_LevelUp\IC_BrivGemFarm_LevelUp_Component.ahk")
                     return true
         return false
     }

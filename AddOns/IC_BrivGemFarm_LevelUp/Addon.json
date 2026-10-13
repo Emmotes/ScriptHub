@@ -1,6 +1,6 @@
 {
 	"Name":"BrivGemFarm LevelUp",
-	"Version": "v1.5.5",
+	"Version": "v1.5.6",
     "Includes" : "IC_BrivGemFarm_LevelUp_Component.ahk",
     "Author" : "ImpEGamer",
     "Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_BrivGemFarm_LevelUp",

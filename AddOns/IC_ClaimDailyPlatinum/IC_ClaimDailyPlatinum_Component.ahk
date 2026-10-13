@@ -481,7 +481,7 @@ Class IC_ClaimDailyPlatinum_Component
 	{
 		try
 		{
-			serverSettingsLoc := { "loc" : A_LineFile . "\..\..\IC_ClaimDailyPlatinum_Extra\ServerCall_Settings.json"}
+			serverSettingsLoc := { "loc" : A_LineFile . "\..\..\IC_ClaimDailyPlatinum\ServerCall_Settings.json"}
 			serverOverrideSettingsLoc := A_LineFile . "\..\..\IC_BrivGemFarm_Performance\ServerCallLocationOverride_Settings.json"
 			g_SF.WriteObjectToJSON(serverOverrideSettingsLoc, serverSettingsLoc)
 			this.UpdateSettingsInstanceID()

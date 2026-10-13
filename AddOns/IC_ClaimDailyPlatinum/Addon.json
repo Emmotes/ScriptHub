@@ -1,6 +1,6 @@
 {
 	"Name":"Claim Daily Platinum",
-	"Version": "v0.5.9",
+	"Version": "v0.5.10",
 	"Includes" : "IC_ClaimDailyPlatinum_Includes.ahk",
 	"Author" : "Emmote",
 	"Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_Addons/IC_ClaimDailyPlatinum",

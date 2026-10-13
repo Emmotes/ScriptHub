@@ -164,7 +164,7 @@ Class IC_BrivGemFarm_BrivFeatSwap_GUI
         ; Link to LevelUp addon
         Gui, ICScriptHub:Add, Text, Hidden xs+%xSpacing% y+%yTitleSpacing% vBGFBFS_GetLevelUpAddonText, % "Use the "
         GUIFunctions.UseThemeTextColor("SpecialTextColor1")
-        local link := "https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_LevelUp_Extra"
+        local link := "https://github.com/emmotes/ScriptHub/tree/main/AddOns/IC_BrivGemFarm_LevelUp"
         Gui, ICScriptHub:Add, Link, Hidden x+0 vBGFBFS_GetLevelUpAddonLink hwndBGFBFS_GetLevelUpAddonLink, <a href="%link%">LevelUp</a>
         this.LinkUseDefaultColor(BGFBFS_GetLevelUpAddonLink)
         GUIFunctions.UseThemeTextColor()

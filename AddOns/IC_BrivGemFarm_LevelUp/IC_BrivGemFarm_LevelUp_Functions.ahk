@@ -1,4 +1,4 @@
-#include *i %A_LineFile%\..\..\IC_BrivGemFarm_BrivFeatSwap_Extra\IC_BrivGemFarm_BrivFeatSwap_Functions.ahk
+#include *i %A_LineFile%\..\..\IC_BrivGemFarm_BrivFeatSwap\IC_BrivGemFarm_BrivFeatSwap_Functions.ahk
 
 ; Functions used by this addon
 class IC_BrivGemFarm_LevelUp_Functions
@@ -32,7 +32,7 @@ class IC_BrivGemFarm_LevelUp_Functions
                     return true
         if (FileExist(AddOnsIncludedConfigFile)) ; Try in the AddOnsIncluded file
             Loop, Read, %AddOnsIncludedConfigFile%
-                if InStr(A_LoopReadLine, "#include *i %A_LineFile%\..\IC_BrivGemFarm_BrivFeatSwap_Extra\IC_BrivGemFarm_BrivFeatSwap_Component.ahk")
+                if InStr(A_LoopReadLine, "#include *i %A_LineFile%\..\IC_BrivGemFarm_BrivFeatSwap\IC_BrivGemFarm_BrivFeatSwap_Component.ahk")
                     return true
         return false
     }
