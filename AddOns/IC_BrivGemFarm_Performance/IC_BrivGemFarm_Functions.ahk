@@ -30,7 +30,6 @@ class IC_BrivGemFarm_Class
     ChampIDs := {}
     UsedWardenUlt := false
     UsedFaridehUlt := false
-    SkipNextChestCheck := False
     FaridehInParty := False
 
     ; Speed Champs
@@ -186,9 +185,7 @@ class IC_BrivGemFarm_Class
         firstRun := False
         g_SharedData.PlayServer := StrSplit(StrSplit(g_ServerCall.webroot,".")[1], "/")[3]
         ; Do Chests after Reset
-        if (!this.SkipNextChestCheck)
-            g_SharedData.LoopString := this.CheckAndDoChests()
-        this.SkipNextChestCheck := False
+        g_SharedData.LoopString := this.CheckAndDoChests()
         
         if(doBasePartySetup)
         {
@@ -232,9 +229,11 @@ class IC_BrivGemFarm_Class
     GemFarmDoStuckCleanup()
     {
         this.RecordEndRun()
-        g_SharedData.TriggerStart := true
-        g_SharedData.StackFail := StackFailStates.FAILED_TO_PROGRESS ; 3
-        g_SharedData.StackFailStats.TALLY[g_SharedData.StackFail] += 1
+		try {
+			g_SharedData.TriggerStart := true
+			g_SharedData.StackFail := StackFailStates.FAILED_TO_PROGRESS ; 3
+        	g_SharedData.StackFailStats.TALLY[g_SharedData.StackFail] += 1
+		}
     }
 
     ; Determins whether to use the default set formation each loop
@@ -344,7 +343,8 @@ class IC_BrivGemFarm_Class
             if (!this.StackFailAreasThisRunTally[CurrentZone] AND (!this.StackFailAreasTally[CurrentZone] OR this.StackFailAreasTally[CurrentZone] < this.MaxStackRestartFails))
             {
                 stackFail := StackFailStates.FAILED_TO_REACH_STACK_ZONE ; 1
-                g_SharedData.StackFailStats.TALLY[stackfail] += 1
+				try
+                	g_SharedData.StackFailStats.TALLY[stackfail] += 1
                 this.StackFarm()
                 return stackfail
             }
@@ -355,7 +355,8 @@ class IC_BrivGemFarm_Class
         {
             this.RecordEndRun()
             stackFail := StackFailStates.FAILED_TO_REACH_STACK_ZONE_HARD ; 4
-            g_SharedData.StackFailStats.TALLY[stackfail] += 1
+			try
+            	g_SharedData.StackFailStats.TALLY[stackfail] += 1
             forcedResetReason := "Briv ran out of jumps but has stacks for next. [@" . g_SF.Memory.ReadHighestZone() . "]"
             g_SF.RestartAdventure(forcedResetReason)
         }         
@@ -539,7 +540,6 @@ class IC_BrivGemFarm_Class
             }
             g_SF.SafetyCheck(stackRestart := True)
             stacksFarmed := this.GetNumStacksFarmed()
-            this.SkipNextChestCheck := True
             ;check if save reverted back to below stacking conditions
             if (g_SF.Memory.ReadCurrentZone() < g_BrivUserSettings[ "MinStackZone" ])
             {
@@ -820,7 +820,8 @@ class IC_BrivGemFarm_Class
         ; stacks not converted to haste properly. Buffer allows for automatic calc variations and possible early jump before calculation done.
         if ((g_SF.Memory.ReadHasteStacks() + variationLeeway) < targetStacks AND stacks >= targetStacks)
         {
-            g_SharedData.StackFailStats.TALLY[StackFailStates.FAILED_TO_CONVERT_STACKS] += 1
+			try
+            	g_SharedData.StackFailStats.TALLY[StackFailStates.FAILED_TO_CONVERT_STACKS] += 1
             g_SF.RestartAdventure( "Failed Conversion" )
             g_SF.SafetyCheck()
             return StackFailStates.FAILED_TO_CONVERT_STACKS ; 2
@@ -828,7 +829,8 @@ class IC_BrivGemFarm_Class
         ; all stacks were lost on reset. Stack leeway given for automatic calc variations. 
         if ((g_SF.Memory.ReadHasteStacks() + variationLeeway) < targetStacks AND g_SF.Memory.ReadSBStacks() <= variationLeeway)
         {
-            g_SharedData.StackFailStats.TALLY[StackFailStates.FAILED_TO_KEEP_STACKS] += 1
+			try
+            	g_SharedData.StackFailStats.TALLY[StackFailStates.FAILED_TO_KEEP_STACKS] += 1
             return StackFailStates.FAILED_TO_KEEP_STACKS ; 5
         }
         return 0
