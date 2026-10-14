@@ -436,7 +436,7 @@ class IC_BrivGemFarm_LevelUp_Added_Class ; Added to IC_BrivGemFarm_Class
 
     ToggleControl(controlKeyDown := false)
     {
-        g_SF.DirectedInput(controlKeyDown, !controlKeyDown, "{RCtrl}")
+        g_SF.DirectedInput(controlKeyDown, !controlKeyDown, "{LCtrl}")
         timeoutTimer := new SH_SharedTimers()
         while (this.ClickDamageLevelAmount() == 25 AND !timeoutTimer.IsTimeUp(100)) ;Allow 100ms for the keypress to apply at maximum to avoid getting stuck. On a fast PC it only took AHK tick (15ms) extra when needed
             Sleep 1
