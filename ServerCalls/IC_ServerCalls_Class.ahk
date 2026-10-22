@@ -28,9 +28,7 @@ class IC_ServerCalls_Class extends SH_ServerCalls
     dummyData := ""
     webRoot := ""
     timeoutVal := 60000
-    playServerExcludes := "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,26"
     settings := ""
-    initMaxRetries := 2
     playServerRegex := "^https?://ps\d+\.idlechampions.com/~idledragons/"
     
     __New( userID := 0, userHash := 0, instanceID := 0)
@@ -49,9 +47,9 @@ class IC_ServerCalls_Class extends SH_ServerCalls
             return this
         }
         ; Step 3: RNG
-        currentPlayServers := [27,28,29,30]
-        Random, psIndex , 1, currentPlayServers.Count()
-        this.webRoot := "http://ps" . currentPlayServers[psIndex] . ".idlechampions.com/~idledragons/"
+        currentPlayServers := [1,2,3,4]
+        Random, psIndex, 1, currentPlayServers.Count()
+        this.webRoot := "http://pslt" . currentPlayServers[psIndex] . ".idlechampions.com/~idledragons/"
         return this
     }
     
@@ -66,7 +64,7 @@ class IC_ServerCalls_Class extends SH_ServerCalls
 
     GetVersion()
     {
-        return "v2.4.8, 2026-05-29"
+        return "v2.4.9, 2026-10-22"
     }
 
     UpdateDummyData()

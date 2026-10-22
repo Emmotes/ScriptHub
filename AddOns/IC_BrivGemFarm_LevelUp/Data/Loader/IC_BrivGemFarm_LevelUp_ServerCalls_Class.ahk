@@ -5,7 +5,7 @@
 class IC_BrivGemFarm_LevelUp_ServerCalls_Class extends SH_ServerCalls
 {
     static Timeout := 60000
-    WebRoot := "http://ps21.idlechampions.com/~idledragons/"
+    WebRoot := "http://pslt3.idlechampions.com/~idledragons/"
 
     GetWebRoot()
     {
@@ -14,7 +14,7 @@ class IC_BrivGemFarm_LevelUp_ServerCalls_Class extends SH_ServerCalls
         if (response != "" && (playServer := this.ParsePlayServer(response)) != "")
             return this.WebRoot := playServer
         else
-            return "http://ps21.idlechampions.com/~idledragons/"
+            return "http://pslt3.idlechampions.com/~idledragons/"
     }
 
     ParsePlayServer(response)
