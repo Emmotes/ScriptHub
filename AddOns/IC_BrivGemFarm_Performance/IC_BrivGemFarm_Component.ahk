@@ -88,8 +88,8 @@ GUIFunctions.UseThemeTextColor("DefaultTextColor")
 GuiControlGet, xyVal, ICScriptHub:Pos, NewMinStackZone
 xyValX += 55
 xyValY += 5
-Gui, ICScriptHub:Add, Text, x%xyValX% y%xyValY%+10, Minimum stack zone (the first area Briv (W) cannot kill.)
-Gui, ICScriptHub:Add, Text, x%xyValX% y+18, Farm Steelbones stacks AFTER this zone (typically 2 jumps before modron reset)
+Gui, ICScriptHub:Add, Text, x%xyValX% y%xyValY%+10, Recovery Stack Zone (the first area Briv (W) cannot kill.)
+Gui, ICScriptHub:Add, Text, x%xyValX% y+18, Stack Zone (typically 2 jumps before modron reset)
 GuiControlGet, xyVal, ICScriptHub:Pos, NewRestartStackTime
 xyValX += 55
 xyValY += 5

@@ -1,3 +1,8 @@
+November 8, 2026
+	Changed `Minimum Stack Zone` to `Recovery Stack Zone` to be more in-line with Briv Master's wording.
+	Changed `Farm Steelbones stacks AFTER this zone` to `Stack Zone` to be more in-line with Briv Master's wording.
+	Made it so that Stack Zone now compares `>=` rather than `>`.
+
 October 22, 2026
 	Fixing an issue with server calls where fallback servers were still ps27-30 instead of pslt1-4.
 	Removed a couple of useless variables.

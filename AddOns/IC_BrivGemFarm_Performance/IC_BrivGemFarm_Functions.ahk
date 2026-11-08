@@ -318,7 +318,7 @@ class IC_BrivGemFarm_Class
         stackfail := 0
         forcedResetReason := ""
         ; passed stack zone, start stack farm. Normal operation.
-        if (stacks < targetStacks AND CurrentZone > g_BrivUserSettings[ "StackZone" ])
+        if (stacks < targetStacks AND CurrentZone >= g_BrivUserSettings[ "StackZone" ])
         {
             ; normal-success / adjusted-success behavior. Use settings zone or adjusted zone if good zone has been found. (Resets to StackZone for 3 runs before sticking)
             if (this.LastStackSuccessArea == CurrentZone ) 
@@ -337,7 +337,7 @@ class IC_BrivGemFarm_Class
         if ("" == (hasteStacks := g_SF.Memory.ReadHasteStacks())) ; can't read haste, skip next steps
             return stackFail
         ; stack briv between min zone and stack zone if briv is out of jumps (if stack fail recovery is on)
-        if (hasteStacks < 50 AND stacks < targetStacks AND CurrentZone >= g_BrivUserSettings[ "MinStackZone" ] AND g_BrivUserSettings[ "StackFailRecovery" ] AND CurrentZone <= g_BrivUserSettings[ "StackZone" ] )
+        if (hasteStacks < 50 AND stacks < targetStacks AND CurrentZone >= g_BrivUserSettings[ "MinStackZone" ] AND g_BrivUserSettings[ "StackFailRecovery" ] AND CurrentZone < g_BrivUserSettings[ "StackZone" ] )
         {
             ; only use current zone if there's been no/non-excess issues with it.
             if (!this.StackFailAreasThisRunTally[CurrentZone] AND (!this.StackFailAreasTally[CurrentZone] OR this.StackFailAreasTally[CurrentZone] < this.MaxStackRestartFails))

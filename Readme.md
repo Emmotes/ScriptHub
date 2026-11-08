@@ -143,14 +143,13 @@ Once you know your `Rush cap` and your `Click Wall` - you can choose where to mo
 
 There are four main settings here that you will want to make sure are correct for your setup. The others you can largely leave default.
 
-1. `Minimum Stack Zone`: This should be set to the lowest zone where the `W` (Fav:2) formation cannot kill anything (plus about 5-10 zones in-case of event buffs or weekend buffs).
+1. `Recovery Stack Zone`: This should be set to the lowest zone where the `W` (Fav:2) formation cannot kill anything (plus about 5-10 zones in-case of event buffs or weekend buffs).
    - Do not guess or make up the value you put in this setting. Test it. It is for recovery runs where Briv doesn't have any stacks. The script will have to crawl to this zone so you want it to be as low as possible.
    - If it is too low - Briv will kill and he'll get no stacks.
    - If it is too high - it's possible your team will never get there - or it will just take forever.
    - You never want to need this setting - but it's better to have it and not need it - than need it and not have it.
-2. `Farm Steelbones stacks AFTER this zone`: You can stack anywhere between your `Minimum stack zone` and two Briv jumps prior to your `Modron Reset Zone`. Ideally where you stack will get you enough stacks for your run. Too high and Briv might die too quickly for example.
+2. `Stack Zone`: You can stack anywhere between your `Recovery Stack Zone` and two Briv jumps prior to your `Modron Reset Zone`. Ideally where you stack will get you enough stacks for your run. Too high and Briv might die too quickly for example.
    - Note that I said `two Briv jumps prior` and NOT `two zones prior`. For example a 3j Briv can move 4 zones per jump - skipping 3 zones and landing on the one after. So 2 jumps for 3j will be 8 zones prior to your reset.
-   - However - also note that this setting says `AFTER` - it cannot stack on the zone you set. So if you were 100% 3j and your reset was z300 - you would want to set *at most* `291`. These are just example numbers - do not copy them.
    - If you are running `Doubles` or `Triples` (stacking once and gaining enough stacks to do two or three runs respectively) - you will need to stack later (nearer the modron reset) in a run for consistency.
 3. `Time (ms) client remains closed to trigger Restart Stacking`: This is how long the script delays before starting the game again after turning it off to do offline stacking. You want this to be as low as it can possibly be while still triggering the offline calculation simulation every single time.
    - `6000`ms is the default and should be more than enough for most people - though some may need to increase it. Most will want to reduce it.
@@ -186,7 +185,7 @@ You should be able to leave all of the settings here alone - but there are a few
 
 ### Fail Run Recovery Settings
 
-- `Level champions to soft cap after failed conversion`: Unfortunately this will increase your `Minimum stack zone` mentioned earlier because it increases your champions' damage. It is often unnecessary and can be turned off - but some people may need it to be able to even reach their minimum stack zone. So - this will be something you will have to test.
+- `Level champions to soft cap after failed conversion`: Unfortunately this will increase your `Recovery Stack Zone` mentioned earlier because it increases your champions' damage. It is often unnecessary and can be turned off - but some people may need it to be able to even reach their Recovery Stack Zone. So - this will be something you will have to test.
 
 ## RNG Waiting Room
 
