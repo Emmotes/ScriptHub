@@ -254,25 +254,17 @@ class BrivFunctions
         if (IsObject(IC_BrivGemFarm_LevelUp_Component) || IsObject(IC_BrivGemFarm_LevelUp_Class)) ; levelup addon controls briv leveling.
         {
             if (IsObject(g_BrivGemFarm_LevelUp))
-            {
-                brivMinlevelArea := g_BrivGemFarm_LevelUp.Settings.BrivMinLevelArea
-                brivLevelingZones:= g_BrivGemFarm_LevelUp.Settings.BrivLevelingZones
-            }
+                CombineThelloraBriv := g_BrivGemFarm_LevelUp.Settings.CombineThelloraBriv ? 1 : 2
             else
-            {
-                brivMinlevelArea := g_BrivUserSettingsFromAddons[ "BGFLU_BrivMinLevelArea" ]
-                brivLevelingZones := g_BrivUserSettingsFromAddons[ "BGFLU_BrivLevelingZones" ]
-            }
-            ; Not always equal to brivMinlevelArea
-            actualZone := this.FindActualBrivMinLevelingZone(brivMinlevelArea, brivLevelingZones)
-            brivMinlevelArea := actualZone == -1 ? modronReset : actualZone
-            if (currentZone < brivMinlevelArea && this.ReadUnnaturalHastePurchased())
-                brivMinlevelArea := currentZone
+                CombineThelloraBriv := g_BrivUserSettingsFromAddons[ "BGFLU_CombineThelloraBriv" ] ? 1 : 2
+            CombineThelloraBriv := CombineThelloraBriv == "" ? 2 : CombineThelloraBriv
+            if (currentZone < CombineThelloraBriv && this.ReadUnnaturalHastePurchased())
+                CombineThelloraBriv := currentZone
             ; Check if upgrade actually exists
             if (g_SF.Memory.ReadChampLvlByID(this.BrivId) >= this.MetalbornUpgradeLevel && !this.ReadMetalbornPurchased())
                 brivMetalbornArea := modronReset
             else
-                brivMetalbornArea := brivMinlevelArea
+                brivMetalbornArea := CombineThelloraBriv
         }
         resetCount := g_SF.Memory.ReadResetsCount() ; For updating at least once each run.
         refreshConfig := refreshCache || resetCount > lastResetsCount
@@ -285,7 +277,7 @@ class BrivFunctions
         ; Party has not progressed to the next zone yet but Briv stacks were consumed.
         if (highestZone - currentZone > 1)
             currentZone := highestZone
-        stacksAtReset := Max(this.MinHaste, this.CalcStacksLeftAtReset(preferred, currentZone, modronReset, sprintStacks, skipQ, skipE, brivMinlevelArea, brivMetalbornArea))
+        stacksAtReset := Max(this.MinHaste, this.CalcStacksLeftAtReset(preferred, currentZone, modronReset, sprintStacks, skipQ, skipE, CombineThelloraBriv, brivMetalbornArea))
         if (addSBStacks)
             stacksAtReset += sbStacks
         return stacksAtReset
@@ -298,10 +290,10 @@ class BrivFunctions
     ;             - startStacks:int - Briv Haste stacks.
     ;             - skipQ:int - Number of Briv jumps in the Q formation.
     ;             - skipE:int - Number of Briv jumps in the E formation.
-    ;             - brivMinLevelArea:int - Minimum level where Briv can jump (LevelUp addon setting).
+    ;             - CombineThelloraBriv:int - Minimum level where Briv can jump (LevelUp addon setting).
     ;             - brivMetalbornArea:int - Minimum level where Briv gets Metalborn (LevelUp addon setting).
     ; Returns:    - int - Number of Briv Haste stacks left at the reset zone.
-    CalcStacksLeftAtReset(mod50values, currentZone, resetZone, startStacks, skipQ, skipE, brivMinLevelArea := 1, brivMetalbornArea := 1)
+    CalcStacksLeftAtReset(mod50values, currentZone, resetZone, startStacks, skipQ, skipE, CombineThelloraBriv := 1, brivMetalbornArea := 1)
     {
         qVal := skipQ != "" ? Max(skipQ + 1, 1) : 1
         eVal := skipE != "" ? Max(skipE + 1, 1) : 1
@@ -313,7 +305,7 @@ class BrivFunctions
                 mod50values[A_Index] := (mod50Int & (2 ** (A_Index - 1))) != 0
         }
         ; Walk
-        currentZone := Max(currentZone, brivMinLevelArea)
+        currentZone := Max(currentZone, CombineThelloraBriv)
         ; Jump
         while (currentZone < resetZone)
         {
@@ -331,28 +323,6 @@ class BrivFunctions
     PredictStacksActive()
     {
         return g_BrivUserSettings[ "PredictStacks" ]
-    }
-
-    FindActualBrivMinLevelingZone(brivMinlevelArea := 1, brivLevelingZones := "")
-    {
-        if (brivLevelingZones)
-        {
-            firstArea := Mod(brivMinlevelArea, 50) == 0 ? 50 : Mod(brivMinlevelArea, 50)
-            brivLevelingZones := this.ConvertBitfieldToArray(brivLevelingZones)
-            repeatingNum := brivLevelingZones.Length()
-            Loop, % repeatingNum - firstArea + 1
-            {
-                area := firstArea + A_Index - 1
-                if (brivLevelingZones[area] == 1)
-                    return brivMinlevelArea + A_Index - 1
-            }
-            Loop, % firstArea - 1
-            {
-                if (brivLevelingZones[A_Index] == 1)
-                    return brivMinlevelArea + (repeatingNum - firstArea) + A_Index
-            }
-        }
-        return -1
     }
 
     ConvertBitfieldToArray(value)

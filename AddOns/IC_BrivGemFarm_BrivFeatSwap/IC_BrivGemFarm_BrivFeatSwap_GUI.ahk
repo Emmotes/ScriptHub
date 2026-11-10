@@ -67,7 +67,6 @@ Class IC_BrivGemFarm_BrivFeatSwap_GUI
         local xSpacing := this.XSpacing
         local yTitleSpacing := this.YTitleSpacing
         Gui, ICScriptHub:Add, Button, xs y+%yTitleSpacing% vBrivGemFarm_BrivFeatSwap_Save gBrivGemFarm_BrivFeatSwap_Save, Save
-        Gui, ICScriptHub:Add, CheckBox, x+18 yp+5 vBGFBFS_Enabled, Enabled
         Gui, ICScriptHub:Font, w700
         Gui, ICScriptHub:Add, Text, Section xs y+%yTitleSpacing% vBGFBFS_PresetText, Presets:
         Gui, ICScriptHub:Font, w400
@@ -210,7 +209,6 @@ Class IC_BrivGemFarm_BrivFeatSwap_GUI
     ; Show tooltips on mouseover.
     AddToolTips()
     {
-        GUIFunctions.AddToolTip("BGFBFS_Enabled", "Enable/disable this addon.")
         GUIFunctions.AddToolTip("BGFBFS_PresetText", "Select a preset. Choose the blank option to use custom settings.")
         GUIFunctions.AddToolTip("BGFBFS_Preset", "Select a preset. Choose the blank option to use custom settings.")
         GUIFunctions.AddToolTip("BrivGemFarm_BrivFeatSwap_TargetQ", "Number of areas Briv will skip in Q formation. To simulate walking, enter 0.")

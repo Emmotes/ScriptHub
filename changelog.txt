@@ -1,3 +1,21 @@
+November 10, 2026
+	BrivGF Advanced:
+	 - Removed Warden's ultimate trigger.
+	 - Moved Farideh's trigger to the right box.
+	Stats:
+	 - Removed `Toggle Scientific Notation` setting.
+	Feat Swap:
+	 - Removed the `Enabled` setting from Feat Swap.
+	Level Up:
+	 - Removed the `Max simultaneous F keys inputs during MinLevel` setting.
+	 - Removed the `z1 formation` checkbox.
+	 - Removed the `Spam click damage` setting.
+	 - Removed the `Match highest area` setting.
+	 - Changed the `Minimum zone to reach before leveling Briv` setting to a `Combining Thellora and Briv` checkbox.
+	 - Removed the `Briv Min leveling zones` settings.
+	RNG Waiting Room:
+	 - Removed the `Gem farm mode (Ellywick)` setting.
+
 November 8, 2026
 	Changed `Minimum Stack Zone` to `Recovery Stack Zone` to be more in-line with Briv Master's wording.
 	Changed `Farm Steelbones stacks AFTER this zone` to `Stack Zone` to be more in-line with Briv Master's wording.

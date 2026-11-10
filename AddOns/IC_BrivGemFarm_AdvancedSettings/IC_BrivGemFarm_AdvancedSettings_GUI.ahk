@@ -24,7 +24,7 @@ Class IC_BrivGemFarm_AdvancedSettings_GUI
     {
         global
         ; Advanced Options Settings Group (Checkboxes only)
-        Gui, ICScriptHub:Add, GroupBox, Section x10 y+15 w215 h190 vWindowSettingsGroup, Advanced Settings
+        Gui, ICScriptHub:Add, GroupBox, Section x10 y+15 w220 h155 vWindowSettingsGroup, Advanced Settings
         GuiControlGet, ws, ICScriptHub:Pos, WindowSettingsGroup
         Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_HiddenFarmWindow xs+10 ys+20, Hide Gem Farm Window
         Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_RestoreLastWindowOnGameOpen xs+10 y+5, Restore Last Window On Game Open
@@ -32,23 +32,18 @@ Class IC_BrivGemFarm_AdvancedSettings_GUI
         Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_FortOnlyRestart xs+10 y+5, No Stack FORTs
         Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_WaitForZoneCompleted xs+10 y+5, Complete Zone Before Stacking
 
-        GUIFunctions.UseThemeTextColor("InputBoxTextColor")
-        Gui, ICScriptHub:Add, Edit, vOptionSettingEdit_WardenUltThreshold xs+10 y+20 w40, % g_BrivUserSettings[ "WardenUltThreshold" ]
-        GUIFunctions.UseThemeTextColor()
-        Gui, ICScriptHub:Add, Text, vOptionSettingText_WardenUltThreshold x+5 yp hp 0x200, Warden Ult Threshold (0 = off)
-        
-        GUIFunctions.UseThemeTextColor("InputBoxTextColor")
-        Gui, ICScriptHub:Add, Edit, vOptionSettingEdit_FaridehUltThreshold xs+10 y+5 w40, % g_BrivUserSettings[ "FaridehUltThreshold" ]
-        GUIFunctions.UseThemeTextColor()
-        Gui, ICScriptHub:Add, Text, vOptionSettingText_FaridehUltThreshold x+5 yp hp 0x200, Farideh Ult Threshold (0 = off)
-
         ; Advanced Settings Group (Edit boxes/Numerical fields only)
-        Gui, ICScriptHub:Add, GroupBox, x235 ys w215 h190 vAdvancedSettingsGroup, Advanced Settings
+        Gui, ICScriptHub:Add, GroupBox, x235 ys w220 h155 vAdvancedSettingsGroup, Advanced Settings
         
         GUIFunctions.UseThemeTextColor("InputBoxTextColor")
         Gui, ICScriptHub:Add, Edit, vOptionSettingEdit_ForceOfflineRunThreshold x245 ys+20 w50, % g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
         GUIFunctions.UseThemeTextColor()
         Gui, ICScriptHub:Add, Text, vOptionSettingText_ForceOfflineRunThreshold x+5 yp hp 0x200, ForceOfflineRunThreshold
+        
+        GUIFunctions.UseThemeTextColor("InputBoxTextColor")
+        Gui, ICScriptHub:Add, Edit, vOptionSettingEdit_FaridehUltThreshold x245 y+5 w50, % g_BrivUserSettings[ "FaridehUltThreshold" ]
+        GUIFunctions.UseThemeTextColor()
+        Gui, ICScriptHub:Add, Text, vOptionSettingText_FaridehUltThreshold x+5 yp hp 0x200, Farideh Ult Threshold (0 = off)
 
         GUIFunctions.UseThemeTextColor("InputBoxTextColor")
         Gui, ICScriptHub:Add, Edit, vOptionSettingEdit_DashWaitBuffer x245 y+5 w50, % g_BrivUserSettings[ "DashWaitBuffer" ]
@@ -66,8 +61,8 @@ Class IC_BrivGemFarm_AdvancedSettings_GUI
         Gui, ICScriptHub:Add, Text, vOptionSettingText_WindowYPosition x+5 yp hp 0x200, WindowyPosition
 
         ; Preferred Briv Jump Zones Group
-        preferredY := wsY + 205
-        Gui, ICScriptHub:Add, GroupBox, x10 y%preferredY% w440 h235 vPreferredJumpGroup, Preferred Briv Jump Zones
+        preferredY := wsY + 160
+        Gui, ICScriptHub:Add, GroupBox, x10 y%preferredY% w445 h235 vPreferredJumpGroup, Preferred Briv Jump Zones
         
         local controlLoc := IC_BrivGemFarm_AdvancedSettings_Functions.BuildModTables(20, preferredY)
         IC_BrivGemFarm_AdvancedSettings_Component.LoadAdvancedSettings()

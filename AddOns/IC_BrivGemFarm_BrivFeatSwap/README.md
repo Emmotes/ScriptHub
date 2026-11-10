@@ -41,7 +41,7 @@ ___
 1. Enable/Disable the Addon in **Addon Management** (Jigsaw puzzle piece in IC Script Hub) to turn it on/off. It should start/stop whenever you click on the main Briv Gem Farm tab.
 2. Set up your **Preferred Briv Jump Zones** in this addon's tab or in **Advanced Settings** tab (IC Script Hub) then save.
 You will have to manually save your profile in **Briv Gem Farm** tab.
-3. If you have the LevelUp addon, you can set the BrivMinLevelArea setting to walk the first few zones.
+3. If you have the LevelUp addon, you can set the CombineThelloraBriv setting to walk the first few zones.
 
 ![levelup](Images/levelup_settings.png)
 

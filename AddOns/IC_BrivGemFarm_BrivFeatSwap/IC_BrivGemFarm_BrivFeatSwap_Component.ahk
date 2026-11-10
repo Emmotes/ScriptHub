@@ -44,9 +44,6 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
         this.Settings := settings := g_SF.LoadObjectFromJSON(IC_BrivGemFarm_BrivFeatSwap_Functions.SettingsPath)
         if (IsObject(settings))
         {
-            if (!settings.HasKey("Enabled"))
-                settings.Enabled := true
-            GuiControl, ICScriptHub:, BGFBFS_Enabled, % settings.Enabled
             GuiControl, ICScriptHub:, BrivGemFarm_BrivFeatSwap_TargetQ, % settings.targetQ
             GuiControl, ICScriptHub:, BrivGemFarm_BrivFeatSwap_TargetE, % settings.targetE
             ; Fix preset settings from version v1.2.0
@@ -190,8 +187,6 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
     Save(targetQ, targetE)
     {
         settings := this.Settings
-        GuiControlGet, enabled, ICScriptHub:, BGFBFS_Enabled
-        settings.Enabled := enabled
         settings.Preset := this.GetPresetName()
         this.SaveMod50Preset()
         if (IsObject(g_BrivGemFarm_LevelUp))
@@ -264,22 +259,11 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
     ; Parameters: - name:str - Name of a preset shown in the Presets ListBox.
     LoadPreset(name)
     {
-        ; Apply BrivMinLevelArea setting to BGFLU addon
-        if (name == "8J/4J Tall Tales + walk 1/2/3/4" && IsObject(IC_BrivGemFarm_LevelUp_Component))
-        {
-            GuiControl, ICScriptHub:, BGFBFS_BrivMinLevelArea, 5
-            GuiControl, ICScriptHub:, BGFLU_BrivMinLevelArea, 5
-        }
-        else
-        {
-            if (this.Settings.Preset == "8J/4J Tall Tales + walk 1/2/3/4")
-                value := 1
-            else
-                value := g_BrivGemFarm_LevelUp.Settings.BrivMinLevelArea
-            value := value == "" ? 1 : value
-            GuiControl, ICScriptHub:, BGFBFS_BrivMinLevelArea, % value
-            GuiControl, ICScriptHub:, BGFLU_BrivMinLevelArea, % value
-        }
+        ; Apply CombineThelloraBriv setting to BGFLU addon
+		value := g_BrivGemFarm_LevelUp.Settings.CombineThelloraBriv
+		value := value == "" ? 2 : value
+		GuiControl, ICScriptHub:, BGFBFS_BrivMinLevelArea, % value
+		GuiControl, ICScriptHub:, BGFLU_CombineThelloraBriv, % value
         Switch name
         {
             case "5J/4J Tall Tales":
@@ -292,9 +276,7 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
                 this.ApplyPresets(380222613385436, 7, 4)
             case "8J/4J Tall Tales":
                 this.ApplyPresets(57952963557919, 8, 4)
-            case "8J/4J Tall Tales + walk 1/2/3/4":
-                this.ApplyPresets(57952963557919, 8, 4)
-            case "8J/7J Tall Tales":
+            case "8-J/7J Tall Tales":
                 this.ApplyPresets(878610951932870, 8, 7)
             case "9J/4J Tall Tales":
                 this.ApplyPresets(35181131988031, 9, 4)
@@ -302,7 +284,7 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
                 this.ApplyPresets(554220480505760, 12, 11)
             case "14J/9J Tall Tales":
                 this.ApplyPresets(1125899872747503, 14, 9)
-            case "16J/15J Tall Tales":
+            case "16-J/15J Tall Tales":
                 this.ApplyPresets(360709071052808, 16, 15)
             case default:
                 this.ApplyPresets(this.SavedPreferredAdvancedSettings, this.Settings.targetQ, this.Settings.targetE)
@@ -382,15 +364,14 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
         GuiControl, ICScriptHub:%value%, BGFBFS_PreferredBrivJumpZones
     }
 
-    ; Show / hide BrivMinLevelArea setting in BGFBFS tab.
+    ; Show / hide CombineThelloraBriv setting in BGFBFS tab.
     ; If LevelUp addon is not enabled, show link to GitHub.
-    ; Parameters: - show:bool - If true, show BrivMinLevelArea, else hide it.
+    ; Parameters: - show:bool - If true, show CombineThelloraBriv, else hide it.
     ToggleBrivMinLevelArea(show := true)
     {
         showSetting := show ? "Show" : "Hide"
-        ; BrivMinLevelArea LevelUp setting
+        ; CombineThelloraBriv LevelUp setting
         GuiControl, ICScriptHub:%showSetting%, BGFBFS_BrivMinLevelArea
-        GuiControl, ICScriptHub:%showSetting%, BGFBFS_BrivMinLevelAreaText
         GuiControl, ICScriptHub:%showSetting%, BGFBFS_BGFLU
         ; Show get LevelUp addon link
         showLink := (show && !IsObject(IC_BrivGemFarm_LevelUp_Component)) ? "Show" : "Hide"
@@ -428,7 +409,7 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
         mod50Values := this.GetPreferredAdvancedSettings(, true)
         GuiControlGet, targetQ, ICScriptHub:, BrivGemFarm_BrivFeatSwap_TargetQ
         GuiControlGet, targetE, ICScriptHub:, BrivGemFarm_BrivFeatSwap_TargetE
-        GuiControlGet, brivMinLevelArea, ICScriptHub:, BGFBFS_BrivMinLevelArea
+        GuiControlGet, CombineThelloraBriv, ICScriptHub:, BGFBFS_BrivMinLevelArea
         GuiControlGet, brivMetalbornArea, ICScriptHub:, BGFBFS_BrivMetalbornArea
         if (resetArea == "")
         {
@@ -437,15 +418,15 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
             mod50String := ""
             for k, v in mod50Values
                 mod50String .= v
-            if (resetArea == lastResetArea && mod50String == lastMod50Values && targetQ == lastTargetQ && targetE == lastTargetE && brivMinLevelArea == lastBrivMinLevel && brivMetalbornArea == lastBrivMetalborn)
+            if (resetArea == lastResetArea && mod50String == lastMod50Values && targetQ == lastTargetQ && targetE == lastTargetE && CombineThelloraBriv == lastBrivMinLevel && brivMetalbornArea == lastBrivMetalborn)
                 return ; Nothing changed, skip recalculation
             lastResetArea := resetArea
             lastMod50Values := mod50String
             lastTargetQ := targetQ
             lastTargetE := targetE
-            lastBrivMinLevel := brivMinLevelArea
+            lastBrivMinLevel := CombineThelloraBriv
             lastBrivMetalborn := brivMetalbornArea
-            path := this.Calcpath(mod50Values, resetArea, targetQ, targetE, brivMinLevelArea, brivMetalbornArea)
+            path := this.Calcpath(mod50Values, resetArea, targetQ, targetE, CombineThelloraBriv, brivMetalbornArea)
             choices := ""
             for k, v in path.path
             {
@@ -457,7 +438,7 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
             GuiControl, ICScriptHub:ChooseString, BGFBFS_ResetArea, % sel
         }
         else
-            path := this.Calcpath(mod50Values, resetArea, targetQ, targetE, brivMinLevelArea, brivMetalbornArea)
+            path := this.Calcpath(mod50Values, resetArea, targetQ, targetE, CombineThelloraBriv, brivMetalbornArea)
         this.CurrentPath := path.Clone()
         GuiControlGet, runs, ICScriptHub:, BGFBFS_Runs
         ; Update text controls
@@ -481,9 +462,9 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
         mod50Values := this.GetPreferredAdvancedSettings(, true)
         GuiControlGet, targetQ, ICScriptHub:, BrivGemFarm_BrivFeatSwap_TargetQ
         GuiControlGet, targetE, ICScriptHub:, BrivGemFarm_BrivFeatSwap_TargetE
-        GuiControlGet, brivMinLevelArea, ICScriptHub:, BGFBFS_BrivMinLevelArea
+        GuiControlGet, CombineThelloraBriv, ICScriptHub:, BGFBFS_BrivMinLevelArea
         GuiControlGet, brivMetalbornArea, ICScriptHub:, BGFBFS_BrivMetalbornArea
-        maxArea := this.CalcPathStacks(mod50Values, stacks, targetQ, targetE, brivMinLevelArea, brivMetalbornArea)
+        maxArea := this.CalcPathStacks(mod50Values, stacks, targetQ, targetE, CombineThelloraBriv, brivMetalbornArea)
         GuiControlGet, runs, ICScriptHub:, BGFBFS_Runs
         if (!this.DisableResetAreaUpdate && runs == 1)
             GuiControl, ICScriptHub:Text, BGFBFS_ResetArea, % maxArea
@@ -492,7 +473,7 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
         ; Update text controls
         if (!this.DisableResetAreaUpdate && runs == 1)
         {
-            path := this.CalcPath(mod50values, maxArea, targetQ, targetE, brivMinLevelArea, brivMetalbornArea)
+            path := this.CalcPath(mod50values, maxArea, targetQ, targetE, CombineThelloraBriv, brivMetalbornArea)
             a := path.noMetalbornJumps
             b := path.metalbornJumps
             totalWalks := path.walks
@@ -580,14 +561,14 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
     }
 
     ; Calculates the path from z1 to the reset area.
-    ; Parameters: - mod50value:int - If true, show BrivMinLevelArea, else hide it.
+    ; Parameters: - mod50value:int - If true, show CombineThelloraBriv, else hide it.
     ;             - resetArea:int - Actual zone where the run is reset.
     ;             - skipQ:int - Number of Briv jumps in Q formation.
     ;             - skipE:int - Number of Briv jumps in E formation.
-    ;             - brivMinLevelArea:int - Minimum level where Briv can jump (LevelUp addon setting).
+    ;             - CombineThelloraBriv:int - Minimum level where Briv can jump (LevelUp addon setting).
     ;             - brivMetalbornArea:int - Minimum level where Briv gets Metalborn (LevelUp addon setting).
     ; Returns:    - object - array:path, int:walks, int:jumps w/o Metalborn, int:jumps w/ Metalborn
-    CalcPath(mod50values, resetArea, skipQ, skipE, brivMinLevelArea := 1, brivMetalbornArea := 1)
+    CalcPath(mod50values, resetArea, skipQ, skipE, CombineThelloraBriv := 1, brivMetalbornArea := 1)
     {
         preset :=  this.GetPresetName()
         qVal := skipQ != "" ? skipQ + 1 : 1
@@ -602,7 +583,7 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
         }
         path := [currentArea := 1]
         ; Walk
-        Loop, % brivMinLevelArea - 1
+        Loop, % CombineThelloraBriv - 1
             ++currentArea > resetArea ? break : path.Push(++walks + 1)
         ; Jump
         while (currentArea < resetArea)
@@ -623,14 +604,14 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
     }
 
     ; Calculates the path from z1 to the area until Briv reaches under 50 stacks.
-    ; Parameters: - mod50value:int - If true, show BrivMinLevelArea, else hide it.
+    ; Parameters: - mod50value:int - If true, show CombineThelloraBriv, else hide it.
     ;             - stacks:int - Briv stacks.
     ;             - skipQ:int - Number of Briv jumps in Q formation.
     ;             - skipE:int - Number of Briv jumps in E formation.
-    ;             - brivMinLevelArea:int - Minimum level where Briv can jump (LevelUp addon setting).
+    ;             - CombineThelloraBriv:int - Minimum level where Briv can jump (LevelUp addon setting).
     ;             - brivMetalbornArea:int - Minimum level where Briv gets Metalborn (LevelUp addon setting).
     ; Returns:    - int - Maximum area reached.
-    CalcPathStacks(mod50values, stacks, skipQ, skipE, brivMinLevelArea := 1, brivMetalbornArea := 1)
+    CalcPathStacks(mod50values, stacks, skipQ, skipE, CombineThelloraBriv := 1, brivMetalbornArea := 1)
     {
         preset :=  this.GetPresetName()
         qVal := skipQ != "" ? skipQ + 1 : 1
@@ -643,7 +624,7 @@ Class IC_BrivGemFarm_BrivFeatSwap_Component
                 mod50values[A_Index] := (mod50Int & (2 ** (A_Index - 1))) != 0
         }
         ; Walk
-        currentArea := brivMinLevelArea
+        currentArea := CombineThelloraBriv
         ; Jump
         while (stacks >= 50)
         {

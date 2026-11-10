@@ -32,8 +32,8 @@ Known in the GUI as "No Stack FORTs". When running Forced Offline restarts, Idle
 ## "WaitForZoneCompleted"
 Known in the GUI as "Complete Zone Before Stacking". When checked, the script completes the current zone before starting online stacking.
 
-## "WardenUltThreshold" / "FaridehUltThreshold"
-Use Warden's or Farideh's ultimates while stacking when the number of enemies exceeds this threshold (0 = off).
+## "FaridehUltThreshold"
+Use Farideh's ultimates while stacking when the number of enemies exceeds this threshold (0 = off).
 
 ## "Briv Leveling by Zone"
 Allows configuring specific zone levels where Briv should be leveled. You can configure the number of leveling zones (up to 15) and specify the Zone and corresponding Level (Lvl) for each threshold.

@@ -6,8 +6,7 @@ class IC_BrivGemFarm_BrivFeatSwap_Class extends IC_BrivGemFarm_Class
     ; Enables featswap after other setup settings
     GemFarmPreLoopSetup()
     {
-        errLevel := base.GemFarmPreLoopSetup()   
-        g_BrivUserSettings[ "FeatSwapEnabled" ] := g_BrivUserSettingsFromAddons[ "BGFBFS_Enabled" ] 
+        errLevel := base.GemFarmPreLoopSetup()
         return errLevel
     }
 
@@ -29,9 +28,6 @@ class IC_BrivGemFarm_BrivFeatSwap_SharedFunctions_Class extends IC_SharedFunctio
     ; a method to swap formations and cancel briv's jump animation.
     SetFormation(settings := "", forceCheck := False)
     {
-        ; g_SharedData.LoopString := "Setting Formation"
-        if (!g_BrivUserSettingsFromAddons[ "BGFBFS_Enabled" ])
-            return base.SetFormation(settings)
         if(settings != "")
             this.Settings := settings
         formationToSwapTo := ""
@@ -105,7 +101,7 @@ class IC_BrivGemFarm_BrivFeatSwap_SharedFunctions_Class extends IC_SharedFunctio
     ; If Briv has enough stacks to jump, don't force switch to e and wait for the boss to be killed.
     KillCurrentBoss(params*)
     {
-        if (!g_BrivUserSettingsFromAddons[ "BGFBFS_Enabled" ] || this.Memory.ReadHasteStacks() < 50)
+        if (this.Memory.ReadHasteStacks() < 50)
             return base.KillCurrentBoss(params*)
         return true
     }
@@ -165,7 +161,7 @@ class IC_BrivGemFarm_BrivFeatSwap_IC_SharedData_Added_Class ;Added to IC_SharedD
     ; Return true if the class has been updated by the addon
     BGFBFS_Running()
     {
-        return g_BrivUserSettingsFromAddons[ "BGFBFS_Enabled" ]
+        return true
     }
 
     BGFBFS_CurrentPreset()
@@ -209,7 +205,6 @@ class IC_BrivGemFarm_BrivFeatSwap_IC_SharedData_Added_Class ;Added to IC_SharedD
         settings := g_SF.LoadObjectFromJSON(fileName)
         if (!IsObject(settings))
             return false
-        g_BrivUserSettingsFromAddons[ "BGFBFS_Enabled" ] := settings.Enabled
         g_BrivUserSettingsFromAddons[ "BGFBFS_Preset" ] := settings.Preset
     }
 }

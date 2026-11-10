@@ -63,7 +63,6 @@ Class IC_RNGWaitingRoom_Component
     GetDefaultSettings()
     {
         settings := {}
-        settings.EllywickGFEnabled := true
         settings.EllywickGFGemCards := 1
         settings.EllywickGFGemMaxRedraws := 1
         settings.EllywickGFGemWaitFor5Draws := true
@@ -113,7 +112,7 @@ Class IC_RNGWaitingRoom_Component
             SharedRunData := ComObjActive(g_BrivFarm.GemFarmGUID)
             if (SharedRunData.RNGWR_Running == "")
                 this.Stop()
-            else if (SharedRunData.RNGWR_Running AND SharedRunData.RNGWR_GemFarmEnabled)
+            else if (SharedRunData.RNGWR_Running)
             {
                     status := SharedRunData.RNGWR_Status
                     str := "Running" . (status != "" ? " - " . status : "")

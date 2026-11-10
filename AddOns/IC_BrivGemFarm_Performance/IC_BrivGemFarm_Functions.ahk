@@ -744,10 +744,6 @@ class IC_BrivGemFarm_Class
     ; Use Warden/Farideh ults if conditons met.
     UseUlts()
     {
-        ; Warden ultimate
-        if (!this.UsedWardenUlt && g_BrivUserSettings[ "WardenUltThreshold" ] > 0)
-            this.UsedWardenUlt := g_SF.UseChampUltIfEnemyThresholdMet(WARDEN_ID := 36, g_BrivUserSettings[ "WardenUltThreshold" ])
-        
         ; Farideh ultimate
         if (!this.UsedFaridehUlt && g_BrivUserSettings[ "FaridehUltThreshold" ] > 0)
             this.UsedFaridehUlt := g_SF.UseChampUltIfEnemyThresholdMet(FARIDEH_ID := 33, g_BrivUserSettings[ "FaridehUltThreshold" ])

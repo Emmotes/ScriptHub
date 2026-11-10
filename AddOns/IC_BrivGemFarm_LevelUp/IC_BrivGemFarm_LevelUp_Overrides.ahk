@@ -40,7 +40,7 @@ class IC_BrivGemFarm_LevelUp_Class extends IC_BrivGemFarm_Class
         resetsCount := base.GemFarmResetSetup(formationModron, doBasePartySetup := False)
         if(this.GemFarmShouldSetFormation())
             g_SF.SetFormationForStart()
-        this.BGFLU_DoPartySetupMin(g_BrivUserSettingsFromAddons[ "BGFLU_ForceBrivEllywick" ]) ; level forced champions (briv/ellywick), then other minlevel champs
+        this.BGFLU_DoPartySetupMin(true) ; level forced champions (briv/ellywick), then other minlevel champs
         this.Levelupx25 := {} 
         this.ExtraChamps := {}
         this.BGFLU_DoPartyWaits(formationModron)
@@ -68,18 +68,12 @@ class IC_BrivGemFarm_LevelUp_Class extends IC_BrivGemFarm_Class
             this.FormationLevelingLock := false ; Trigger start max leveling
             g_SharedData.BGFLU_UpdateMaxLevels := false
             ; Stop click spam
-            if (!g_BrivUserSettingsFromAddons[ "BGFLU_ClickDamageSpam" ])
-                g_SF.BGFLU_StopSpamClickDamage()
+            g_SF.BGFLU_StopSpamClickDamage()
         }
         if(A_TickCount - lastTick < g_BrivUserSettingsFromAddons[ "BGFLU_MinLevelInputDelay" ])
             return
         ; Click damage
-        if (g_BrivUserSettingsFromAddons[ "BGFLU_ClickDamageMatchArea" ])
-            g_SF.BGFLU_DoClickDamageSetup(, this.BGFLU_GetClickDamageTargetLevel())
-        else if (g_BrivUserSettingsFromAddons[ "BGFLU_ClickDamageSpam" ])
-            g_SF.BGFLU_DoClickDamageSetup(g_BrivUserSettingsFromAddons[ "BGFLU_MaxSimultaneousInputs" ])
-        else
-            g_SF.BGFLU_DoClickDamageSetup(1)
+        g_SF.BGFLU_DoClickDamageSetup(, this.BGFLU_GetClickDamageTargetLevel())
     }
 
     ; Stops progress and switches to appropriate party to prepare for stacking Briv's SteelBones.
@@ -131,7 +125,6 @@ class IC_BrivGemFarm_LevelUp_Added_Class ; Added to IC_BrivGemFarm_Class
                           This will only level champs to the minimum target specified in BrivGemFarm_LevelUp_Settings.json.
                           This will not level champs whose minimum level is set to 0.
                           It will wait for Shandie dash / Thellora Rush if necessary.
-                          It will only level up at a time the number of champions specified in the MaxSimultaneousInputs setting.
         Parameters:       forceBrivEllywick: bool - If true, force Briv/Ellywick to minLevel before leveling other champions
                           timeout: integer - Time in ms before abandoning the initial leveling
 
@@ -210,11 +203,7 @@ class IC_BrivGemFarm_LevelUp_Added_Class ; Added to IC_BrivGemFarm_Class
         Sleep, % g_BrivUserSettingsFromAddons[ "BGFLU_MinLevelInputDelay" ]
         ; Level Clicks
         if(allowClick OR currentZone > 1)
-        {
-            if (g_BrivUserSettingsFromAddons[ "BGFLU_ClickDamageMatchArea" ])
-                g_SF.BGFLU_DoClickDamageSetup(, this.BGFLU_GetClickDamageTargetLevel())
-            g_SF.BGFLU_DoClickDamageSetup(1, this.BGFLU_GetClickDamageTargetLevel())
-        }
+            g_SF.BGFLU_DoClickDamageSetup(, this.BGFLU_GetClickDamageTargetLevel())
         return keyspam
     }
 
@@ -223,7 +212,7 @@ class IC_BrivGemFarm_LevelUp_Added_Class ; Added to IC_BrivGemFarm_Class
         g_SF.ModronResetZone := g_SF.Memory.GetModronResetArea()
         if (!g_BrivUserSettingsFromAddons[ "BGFLU_SkipMinDashWait" ] AND g_SF.ShouldDashWait())
             g_SF.DoDashWait( Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0) )
-        this.BGFLU_DoPartySetupMin(g_BrivUserSettingsFromAddons[ "BGFLU_ForceBrivEllywick" ])
+        this.BGFLU_DoPartySetupMin(true)
         g_SF.FormationLevelingLock := False
         if (g_SF.IsChampInFormation(ActiveEffectKeySharedFunctions.Thellora.HeroID, formation))
             g_SF.DoRushWait()
@@ -243,7 +232,7 @@ class IC_BrivGemFarm_LevelUp_Added_Class ; Added to IC_BrivGemFarm_Class
                 if (champID > 0 AND (champID != 58 OR allowBrivLeveling)) ; Need to walk while Briv is in all formations
                     nonSpeedIDs[champID] := champID
         ; Get Fkeys for speed champs
-        while (keyspam.Length() < g_BrivUserSettingsFromAddons[ "BGFLU_MaxSimultaneousInputs" ])
+        while (keyspam.Length() < 1)
         {
             for k, champID in formation
             {
@@ -260,7 +249,7 @@ class IC_BrivGemFarm_LevelUp_Added_Class ; Added to IC_BrivGemFarm_Class
                         nonSpeedIDs.Delete(champID)
                 }
             }
-            if (keyspam.Length() == 0) ; no champs to add, length cannot reach MaxSimultaneousInputs > 0 here.
+            if (keyspam.Length() == 0) ; no champs to add
                 break
         }
         ; Get Fkeys for other champs
@@ -516,9 +505,7 @@ class IC_BrivGemFarm_LevelUp_Added_Class ; Added to IC_BrivGemFarm_Class
     BGFLU_GetClickDamageTargetLevel()
     {
         setting := g_BrivUserSettingsFromAddons[ "BGFLU_MinClickDamage" ]
-        if (g_BrivUserSettingsFromAddons[ "BGFLU_ClickDamageMatchArea" ])
-            return Max(setting, ((highestLvl := g_SF.Memory.ReadHighestZone()) > 1000 ? highestLvl + 100 : highestLvl))
-        return Max(1, setting)
+        return Max(setting, ((highestLvl := g_SF.Memory.ReadHighestZone()) > 1000 ? highestLvl + 100 : highestLvl))
     }
 
     ; Returns true if stacking Briv is necessary during this run.
@@ -537,21 +524,15 @@ class IC_BrivGemFarm_LevelUp_Added_Class ; Added to IC_BrivGemFarm_Class
         if (g_SF.Memory.ReadHasteStacks() < 50)
             return true
         highestZone := g_SF.Memory.ReadHighestZone()
-        brivMinLevelArea := g_BrivUserSettingsFromAddons[ "BGFLU_BrivMinLevelArea" ]
-        if (highestZone < brivMinLevelArea)
-            return false
-        if (g_BrivUserSettingsFromAddons[ "BGFLU_BrivThelloraCombineBossCheck" ] && IC_BrivGemFarm_LevelUp_Functions.ThelloraBrivCombineHitsBoss())
+        CombineThelloraBriv := g_BrivUserSettingsFromAddons[ "BGFLU_CombineThelloraBriv" ] ? 1 : 2
+        if (highestZone < CombineThelloraBriv)
             return false
         ; Wait for transition to highestZone before leveling during DoRushWait()
-        if (highestZone == brivMinLevelArea && !g_SF.Memory.ReadTransitioning())
+        if (highestZone == CombineThelloraBriv && !g_SF.Memory.ReadTransitioning())
         {
             if (g_SF.Memory.ReadCurrentZone() < highestZone)
                 return false
         }
-        mod50Index := Mod(highestZone, 50) == 0 ? 50 : Mod(highestZone, 50)
-        mod50Zones := g_BrivUserSettingsFromAddons[ "BGFLU_BrivLevelingZones" ]
-        if (mod50Zones[mod50Index] == 0 && this.BGFLU_ChampUnderTargetLevel(ActiveEffectKeySharedFunctions.Briv.HeroID, 80))
-            return false
         return true
     }
 
@@ -724,14 +705,6 @@ class IC_BrivGemFarm_LevelUp_SharedFunctions_Class extends IC_SharedFunctions_Cl
     {
         global g_PreviousZoneStartTime
         Critical, On
-        if (g_BrivUserSettingsFromAddons[ "BGFLU_ClickDamageSpam" ] AND !g_SF.FormationLevelingLock)
-        {
-            ; Level up click damage once
-            this.BGFLU_DoClickDamageSetup(1)
-            ; turn Fkeys off/on again
-            this.DirectedInput(hold := 0,, spam*) ;keysup
-            this.DirectedInput(,release := 0, spam*) ;keysdown
-        }
         ; try to progress
         this.DirectedInput(,,"{Right}")
         this.ToggleAutoProgress(1)
@@ -747,11 +720,7 @@ class IC_BrivGemFarm_LevelUp_SharedFunctions_Added_Class ; Added to IC_BrivShare
 
     BGFLU_GetZ1FormationKey()
     {
-        z1Formation := g_BrivUserSettingsFromAddons[ "BGFLU_FavoriteFormationZ1" ]
-        if (z1Formation == "")
-            z1Formation := "q"
-        z1Formation := Format("{:L}", z1Formation)
-        return z1Formation
+        return Format("{:L}", "q")
     }
 
     ; LevelUp click damage.
@@ -871,22 +840,14 @@ class IC_BrivGemFarm_LevelUp_IC_SharedData_Added_Class ; Added to IC_SharedData_
         g_BrivUserSettingsFromAddons[ "BGFLU_BrivGemFarm_LevelUp_Settings" ] := settings.BrivGemFarm_LevelUp_Settings
         g_BrivUserSettingsFromAddons[ "BGFLU_DefaultMinLevel" ] := settings.DefaultMinLevel
         g_BrivUserSettingsFromAddons[ "BGFLU_DefaultMaxLevel" ] := settings.DefaultMaxLevel
-        g_BrivUserSettingsFromAddons[ "BGFLU_ForceBrivEllywick" ] := settings.ForceBrivEllywick
         g_BrivUserSettingsFromAddons[ "BGFLU_SkipMinDashWait" ] := settings.SkipMinDashWait
-        g_BrivUserSettingsFromAddons[ "BGFLU_MaxSimultaneousInputs" ] := settings.MaxSimultaneousInputs
         g_BrivUserSettingsFromAddons[ "BGFLU_MinLevelInputDelay" ] := settings.MinLevelInputDelay
         g_BrivUserSettingsFromAddons[ "BGFLU_MinLevelTimeout" ] := settings.MinLevelTimeout
-        g_BrivUserSettingsFromAddons[ "BGFLU_FavoriteFormationZ1" ] := settings.FavoriteFormationZ1
         g_BrivUserSettingsFromAddons[ "BGFLU_LowFavorMode" ] := settings.LowFavorMode
         g_BrivUserSettingsFromAddons[ "BGFLU_MinClickDamage" ] := settings.MinClickDamage
-        g_BrivUserSettingsFromAddons[ "BGFLU_ClickDamageMatchArea" ] := settings.ClickDamageMatchArea
-        g_BrivUserSettingsFromAddons[ "BGFLU_ClickDamageSpam" ] := settings.ClickDamageSpam
         g_BrivUserSettingsFromAddons[ "BGFLU_BrivMinLevelStacking" ] := settings.BrivMinLevelStacking
         g_BrivUserSettingsFromAddons[ "BGFLU_BrivMinLevelStackingOnline" ] := settings.BrivMinLevelStackingOnline
-        g_BrivUserSettingsFromAddons[ "BGFLU_BrivMinLevelArea" ] := settings.BrivMinLevelArea
-        g_BrivUserSettingsFromAddons[ "BGFLU_BrivThelloraCombineBossCheck" ] := settings.BrivThelloraCombineBossCheck
-        mod50Zones := IC_BrivGemFarm_LevelUp_Functions.ConvertBitfieldToArray(settings.BrivLevelingZones)
-        g_BrivUserSettingsFromAddons[ "BGFLU_BrivLevelingZones" ] := mod50Zones
+        g_BrivUserSettingsFromAddons[ "BGFLU_CombineThelloraBriv" ] := settings.CombineThelloraBriv
         g_BrivUserSettingsFromAddons[ "BGFLU_LevelToSoftCapFailedConversion" ] := settings.LevelToSoftCapFailedConversion
         g_BrivUserSettingsFromAddons[ "BGFLU_LevelToSoftCapFailedConversionBriv" ] := settings.LevelToSoftCapFailedConversionBriv
         if (updateMaxLevels)

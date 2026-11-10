@@ -1,3 +1,6 @@
+November 10, 2026
+	- Removed the `Enabled` checkbox.
+
 October 13, 2026
 	- Fixed a bug with an `_Extra` reference.
 
@@ -73,7 +76,7 @@ September 25, 2023 - v1.5.2
 September 25, 2023 - v1.5.1
     - Added presets for 6J/4J and 7J/4J.
     - Added an option to use mouse clicks to cancel Briv's jump animation using the clear formation button that doesn't have a hotkey.
-    - BrivMinLevelArea LevelUp setting will be reset to 1 when upgrading from 8J/4J Tall Tales + walk to z5 preset.
+    - CombineThelloraBriv LevelUp setting will be reset to 1 when upgrading from 8J/4J Tall Tales + walk to z5 preset.
 
 September 07, 2023 - v1.4.0
     New features:

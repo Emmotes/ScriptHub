@@ -19,14 +19,6 @@ RNGWR_Save()
     GuiControl, ICScriptHub: Enable, RNGWR_Save
 }
 
-RNGWR_EllywickGFEnabled()
-{
-    global
-    Gui, ICScriptHub:Submit, NoHide
-    local value := % %A_GuiControl%
-    g_RNGWaitingRoom.UpdateSetting("EllywickGFEnabled", value)
-}
-
 RNGWR_EllywickGFGemCards()
 {
     global
@@ -92,7 +84,6 @@ Class IC_RNGWaitingRoom_GUI
         Gui, ICScriptHub:Add, Button, xs y+%yTitleSpacing% vRNGWR_Save gRNGWR_Save, Save
         ; Ellywick (gemfarm)
         center := ySpacing + 4
-        Gui, ICScriptHub:Add, CheckBox, xs y+%center% vRNGWR_EllywickGFEnabled gRNGWR_EllywickGFEnabled, Gem farm mode (Ellywick)
         ; Gem cards
         GUIFunctions.UseThemeTextColor("InputBoxTextColor")
         Gui, ICScriptHub:Add, Edit, w40 xs y+%ySpacing% Limit4 vRNGWR_EllywickGFGemCards gRNGWR_EllywickGFGemCards
@@ -139,7 +130,6 @@ Class IC_RNGWaitingRoom_GUI
 
     UpdateGUISettings(data)
     {
-        GuiControl, ICScriptHub:, RNGWR_EllywickGFEnabled, % data.EllywickGFEnabled
         GuiControl, ICScriptHub:, RNGWR_EllywickGFGemCards, % data.EllywickGFGemCards
         GuiControl, ICScriptHub:, RNGWR_EllywickGFGemMaxRedraws, % data.EllywickGFGemMaxRedraws
         GuiControl, ICScriptHub:, RNGWR_EllywickGFGemWaitFor5Draws, % data.EllywickGFGemWaitFor5Draws

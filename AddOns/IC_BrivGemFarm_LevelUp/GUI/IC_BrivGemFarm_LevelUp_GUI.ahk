@@ -141,24 +141,14 @@ Class IC_BrivGemFarm_LevelUp_GUI
     {
         global
         local group := new IC_BrivGemFarm_LevelUp_GUI_Group("BGFLU_GeneralSettingsGroup", "General Settings",, false)
-        ; Force Briv/Ellywick MinLevel
-        group.AddCheckBox("BGFLU_ForceBrivEllywick",,, "Level up Briv/Ellywick to MinLevel first", true)
         ; Skip early Dashwait
         group.AddCheckBox("BGFLU_SkipMinDashWait",,, "Skip DashWait after Min Leveling")
         ; Maximum number of simultaneous F keys inputs during BGFLU_DoPartySetupMin()
-        group.AddEdit("BGFLU_MaxSimultaneousInputs",, "w50 Limit2",, true)
-        group.AddControl("BGFLU_MaxSimultaneousInputsText", "Text", "x+5 yp+4", "Max simultaneous F keys inputs during MinLevel")
         group.AddEdit("BGFLU_MinLevelInputDelay",, "yp-4 w50 Limit3")
         group.AddControl("BGFLU_MinLevelInputDelayText", "Text", "x+5 yp+4", "Delay (ms)")
         ; Timeout during BGFLU_DoPartySetupMin()
         group.AddEdit("BGFLU_MinLevelTimeout",, "w50 Limit5",, true)
         group.AddControl("BGFLU_MinLevelTimeoutText", "Text", "x+5 yp+4", "MinLevel timeout (ms)")
-        ; Z1 formation
-        group.AddControl("BGFLU_FavoriteFormationZ1", "DropDownList", "yp-5 w35 hwndBGFLU_FavoriteFormationZ1 gBGFLU_FavoriteFormationZ1", "Q||W|E")
-        SendMessage, CB_SETITEMHEIGHT, -1, 17,, ahk_id %BGFLU_FavoriteFormationZ1%
-        if (ErrorLevel)
-            MsgBox, 16,, Failed to resize BGFLU_FavoriteFormationZ1.
-        group.AddControl("BGFLU_FavoriteFormationZ1Text", "Text", "x+5 yp+4", "z1 formation")
         ; Low favor mode
         group.AddCheckBox("BGFLU_LowFavorMode",,, "Low favor mode", true)
         ; Click damage settings
@@ -166,20 +156,15 @@ Class IC_BrivGemFarm_LevelUp_GUI
         ClickGroup.AddControl("BGFLU_ClickDamageText", "Text", "x+0", "Level click damage to level")
         ClickGroup.AddEdit("BGFLU_MinClickDamage",, "x+5 yp-3 w50 Limit4")
         ClickGroup.AddControl("BGFLU_MinClickDamageText", "Text", "x+5 yp+3", "on the initial zone")
-        ClickGroup.AddCheckBox("BGFLU_ClickDamageSpam",, "xs+0", "Spam click damage", true)
-        ClickGroup.AddCheckBox("BGFLU_ClickDamageMatchArea",,, "Match highest area")
         ClickGroup.AutoResize(true, "Line")
         group.AddExistingControl(ClickGroup)
         ; Briv settings
-        local BrivGroup := new IC_BrivGemFarm_LevelUp_GUI_Group("BGFLU_BrivGroup", "Briv", "BGFLU_GeneralSettingsGroup", false,, "BGFLU_ClickDamageSpam")
+        local BrivGroup := new IC_BrivGemFarm_LevelUp_GUI_Group("BGFLU_BrivGroup", "Briv", "BGFLU_GeneralSettingsGroup", false,, "BGFLU_ClickDamageText")
         BrivGroup.AddControl("BGFLU_Combo_BrivMinLevelStacking", "ComboBox", "x+0 w50 Limit5 hwndHBGFLU_BrivMinLevelStacking gBGFLU_MinMax_Clamp",, true)
         BrivGroup.AddControl("BGFLU_BrivMinLevelStackingText", "Text", "x+5 yp+4", "Briv MinLevel before stacking (offline)")
         BrivGroup.AddControl("BGFLU_Combo_BrivMinLevelStackingOnline", "ComboBox", "yp-4 w50 Limit5 hwndHBGFLU_BrivMinLevelStackingOnline gBGFLU_MinMax_Clamp")
         BrivGroup.AddControl("BGFLU_BrivMinLevelStackingOnlineText", "Text", "x+5 yp+4", "Briv MinLevel before stacking (online)")
-        BrivGroup.AddEdit("BGFLU_BrivMinLevelArea",, "xs+0 w50 Limit4",, true)
-        BrivGroup.AddControl("BGFLU_BrivMinLevelAreaText", "Text", "x+5 yp+4", "Minimum area to reach before leveling Briv")
-        local BrivMod50Group := new IC_BrivGemFarm_LevelUp_GUI_Mod50Group("BGFLU_BrivLevelingZones", "Briv Min leveling zones", "BGFLU_BrivGroup", false,, "BGFLU_BrivMinLevelArea")
-        BrivMod50Group.AutoResize(true, "Borderless")
+        BrivGroup.AddCheckBox("BGFLU_CombineThelloraBriv",, "xs+0", "Combine Thellora and Briv", true)
         BrivGroup.AddExistingControl(BrivMod50Group)
         BrivGroup.AutoResize(true, "Line")
         group.AddExistingControl(BrivGroup)
@@ -418,18 +403,5 @@ Class IC_BrivGemFarm_LevelUp_GUI
         }
         else
             return Format("{:#x}", color)
-    }
-
-    ; Set the state of the mod50 checkboxes for Preferred Briv Jump Zones in BGFBFS tab.
-    ; Parameters: value:int - A bitfield that represents the checked state of each checkbox.
-    LoadMod50(setting, value)
-    {
-        rootControlID := "BGFLU_" . setting . "_Mod50_"
-        Loop, 50
-        {
-            checked := (value & (2 ** (A_Index - 1))) != 0
-            GuiControl, ICScriptHub:, %rootControlID%%A_Index%, % checked
-        }
-        Gui, ICScriptHub:Submit, NoHide
     }
 }

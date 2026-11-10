@@ -73,9 +73,6 @@ The distance from your Modron's reset zone where dashwait will stop being activa
 * **WindowXPosition** / **WindowYPosition**: `<integer>` (Default: `0` / `0`)  
 Sets the horizontal and vertical screen coordinates where the gem farm script window appears on your monitor.
 
-* **WardenUltThreshold** / **FaridehUltThreshold**: `<integer>` (Default: `0`)  
-Triggers Warden's or Farideh's ultimates while stacking when the number of enemies exceeds the specified threshold (0 = off).
-
 * **PreferredBrivJumpZones**: `<array>`  
 An array of 50 binary values representing the zones in a 50-zone cycle where Briv jumps are preferred (`1` allows jumping, `0` disables).
 

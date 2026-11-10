@@ -1,3 +1,11 @@
+November 10, 2026
+	- Removed the `Max simultaneous F keys inputs during MinLevel` setting.
+	- Removed the `z1 formation` checkbox.
+	- Removed the `Spam click damage` setting.
+	- Removed the `Match highest area` setting.
+	- Changed the `Minimum zone to reach before leveling Briv` setting to a `Combining Thellora and Briv` checkbox.
+	- Removed the `Briv Min leveling zones` settings.
+
 October 22, 2026
 	- Fixing an issue where Level Up was trying to use old servers for its server calls.
 
@@ -217,7 +225,7 @@ July 21, 2023 - v0.5.1
     - After loading definitions, the latest server timestamp is now shown as a tooltip for Last updated text (user local time).
     - Fixes:
         - Fixed reading and filtering keys from the cached_definitons file when the path to the folder has been found.
-        - Fixed default value for BrivMinLevelArea setting (was 0, now 1) to match the value initially set in the GUI.
+        - Fixed default value for CombineThelloraBriv setting (was 0, now 1) to match the value initially set in the GUI.
         - After starting BrivGemFarm, when filling missing min/max settings, the script will retry to read memory to calculate those settings every 1000ms until success.
 
 July 17, 2023 - v0.5.0

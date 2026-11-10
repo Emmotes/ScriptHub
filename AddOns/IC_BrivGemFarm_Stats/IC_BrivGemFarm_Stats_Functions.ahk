@@ -4,7 +4,7 @@ global g_EmStatsImage := A_LineFile . "\..\..\..\Images\EmStats.png"
 class IC_BrivGemFarm_Stats_Component
 {
     static SettingsPath := A_LineFile . "\..\Stats_Settings.json"
-    DefaultSettings := {"CompactTS":false,"Scientific":false}
+    DefaultSettings := {"CompactTS":false}
     Settings := {}
 
     doesExist := true
@@ -36,7 +36,6 @@ class IC_BrivGemFarm_Stats_Component
     LastLowestHasteRun := ""
     LastLowestHasteStacks := 9999999
     StatsRunsCount := 0
-    DisplayScientific := false
     CompactTimestamps := false
     w700Height := 0
     w400Height := 0
@@ -227,15 +226,6 @@ class IC_BrivGemFarm_Stats_Component
         Gui, ICScriptHub:Add, Text, vNordomWarningID x%nordomX% y%posY% w%nordomWidth%, 
                
         GUIFunctions.UseThemeTextColor("DefaultTextColor")
-        GuiControlGet, pos, ICScriptHub:Pos, OnceRunGroupID
-        posY -= 1
-        posX += 240
-        Gui, ICScriptHub:Add, Text, x%posX% y%posY% w160, 
-        posX += 10
-        Gui, ICScriptHub:Add, Checkbox, x%posX% y%posY% vStatsToggleScientific, Toggle Scientific Notation
-        buttonFunc := ObjBindMethod(this, "SaveSettings")
-        GuiControl,ICScriptHub: +g, StatsToggleScientific, % buttonFunc
-        
         GuiControlGet, pos, ICScriptHub:Pos, OnceRunGroupID
         g_DownAlign := g_DownAlign + posH -5
         GUIFunctions.UseThemeTextColor()
@@ -453,28 +443,28 @@ class IC_BrivGemFarm_Stats_Component
             if(IsObject(this.SharedRunData))
                 GuiControl, ICScriptHub:, FailedStackingID, % ArrFnc.GetDecFormattedArrayString(this.SharedRunData.StackFailStats.TALLY)
         }
-        GuiControl, ICScriptHub:, TotalRunCountID, % this.DecideScientific(this.TotalRunCount)
+        GuiControl, ICScriptHub:, TotalRunCountID, % g_SF.AddThousandsSeperator(this.TotalRunCount)
         if(this.GemsTotal != "")
-            GuiControl, ICScriptHub:, GemsTotalID, % this.DecideScientific(this.GemsTotal)
+            GuiControl, ICScriptHub:, GemsTotalID, % g_SF.AddThousandsSeperator(this.GemsTotal)
 
         if (IsObject(this.SharedRunData))
         {
             currentSilverChests := g_SF.Memory.ReadChestCountByID(1) ; Start + Purchased + Dropped - Opened
             currentGoldChests := g_SF.Memory.ReadChestCountByID(2)
-            GuiControl, ICScriptHub:, SilversOpenedID, % this.DecideScientific(this.SharedRunData.OpenedSilverChests)
-            GuiControl, ICScriptHub:, SilversBoughtID, % this.DecideScientific(this.SharedRunData.PurchasedSilverChests)
-            GuiControl, ICScriptHub:, SilversDroppedID, % this.DecideScientific(this.CalculateDroppedChests(currentSilverChests, 1))
-            GuiControl, ICScriptHub:, GoldsOpenedID, % this.DecideScientific(this.SharedRunData.OpenedGoldChests)
-            GuiControl, ICScriptHub:, GoldsBoughtID, % this.DecideScientific(this.SharedRunData.PurchasedGoldChests)
-            GuiControl, ICScriptHub:, GoldsDroppedID, % this.DecideScientific(this.CalculateDroppedChests(currentGoldChests, 2))
+            GuiControl, ICScriptHub:, SilversOpenedID, % g_SF.AddThousandsSeperator(this.SharedRunData.OpenedSilverChests)
+            GuiControl, ICScriptHub:, SilversBoughtID, % g_SF.AddThousandsSeperator(this.SharedRunData.PurchasedSilverChests)
+            GuiControl, ICScriptHub:, SilversDroppedID, % g_SF.AddThousandsSeperator(this.CalculateDroppedChests(currentSilverChests, 1))
+            GuiControl, ICScriptHub:, GoldsOpenedID, % g_SF.AddThousandsSeperator(this.SharedRunData.OpenedGoldChests)
+            GuiControl, ICScriptHub:, GoldsBoughtID, % g_SF.AddThousandsSeperator(this.SharedRunData.PurchasedGoldChests)
+            GuiControl, ICScriptHub:, GoldsDroppedID, % g_SF.AddThousandsSeperator(this.CalculateDroppedChests(currentGoldChests, 2))
             GuiControl, ICScriptHub:, ShiniesID, % this.SharedRunData.ShinyCount
         }
         if(this.TotalFarmTime == "" OR g_SF.Memory.GetCoreXPByInstance(this.ActiveGameInstance) == "" )
             return
         GuiControl, ICScriptHub:, AvgRunTimeID, % this.FormatMsec(this.TotalFarmTime / this.TotalRunCount)
         GuiControl, ICScriptHub:, dtTotalTimeID, % this.FormatMsec(this.TotalFarmTime)
-        GuiControl, ICScriptHub:, bossesPhrID, % this.DecideScientific(this.BossesPerHour)
-        GuiControl, ICScriptHub:, GemsPhrID, % this.DecideScientific(Round( this.GemsTotal / this.TotalFarmTimeHrs, 3 ))
+        GuiControl, ICScriptHub:, bossesPhrID, % g_SF.AddThousandsSeperator(this.BossesPerHour)
+        GuiControl, ICScriptHub:, GemsPhrID, % g_SF.AddThousandsSeperator(Round( this.GemsTotal / this.TotalFarmTimeHrs, 3 ))
     }
 
     ; Caches run start values such as current xp, gems, and chests.
@@ -701,12 +691,12 @@ class IC_BrivGemFarm_Stats_Component
         if(IsObject(this.SharedRunData))
         {
             GuiControl, ICScriptHub:, FailedStackingID, % ArrFnc.GetDecFormattedArrayString(this.SharedRunData.StackFailStats.TALLY)
-            GuiControl, ICScriptHub:, SilversOpenedID, % this.DecideScientific(this.SharedRunData.OpenedSilverChests)
-            GuiControl, ICScriptHub:, SilversBoughtID, % this.DecideScientific(this.SharedRunData.PurchasedSilverChests)
-            GuiControl, ICScriptHub:, SilversDroppedID, % this.DecideScientific(this.CalculateDroppedChests(currentSilverChests, 1))
-            GuiControl, ICScriptHub:, GoldsOpenedID, % this.DecideScientific(this.SharedRunData.OpenedGoldChests)
-            GuiControl, ICScriptHub:, GoldsBoughtID, % this.DecideScientific(this.SharedRunData.PurchasedGoldChests)
-            GuiControl, ICScriptHub:, GoldsDroppedID, % this.DecideScientific(this.CalculateDroppedChests(currentGoldChests, 2))
+            GuiControl, ICScriptHub:, SilversOpenedID, % g_SF.AddThousandsSeperator(this.SharedRunData.OpenedSilverChests)
+            GuiControl, ICScriptHub:, SilversBoughtID, % g_SF.AddThousandsSeperator(this.SharedRunData.PurchasedSilverChests)
+            GuiControl, ICScriptHub:, SilversDroppedID, % g_SF.AddThousandsSeperator(this.CalculateDroppedChests(currentSilverChests, 1))
+            GuiControl, ICScriptHub:, GoldsOpenedID, % g_SF.AddThousandsSeperator(this.SharedRunData.OpenedGoldChests)
+            GuiControl, ICScriptHub:, GoldsBoughtID, % g_SF.AddThousandsSeperator(this.SharedRunData.PurchasedGoldChests)
+            GuiControl, ICScriptHub:, GoldsDroppedID, % g_SF.AddThousandsSeperator(this.CalculateDroppedChests(currentGoldChests, 2))
             GuiControl, ICScriptHub:, ShiniesID, % this.SharedRunData.ShinyCount
             GuiControl, ICScriptHub:, StatsPlayServerID, % this.SharedRunData.PlayServer . (g_SF.Memory.ReadWebRoot() == "" ? "?" : "")
             GuiControl, ICScriptHub:, StatsLowestHasteID, % this.SharedRunData.LowestHasteStacks == 9999999 ? "" : this.SharedRunData.LowestHasteStacks
@@ -834,13 +824,6 @@ class IC_BrivGemFarm_Stats_Component
         return t
     }
     
-    DecideScientific(val)
-    {
-        if (this.DisplayScientific)
-            return g_SF.GetScientificNotation(val, 3)
-        return g_SF.AddThousandsSeperator(val)
-    }
-    
     LoadSettings()
     {
         Global
@@ -857,9 +840,7 @@ class IC_BrivGemFarm_Stats_Component
         if(writeSettings)
             g_SF.WriteObjectToJSON(this.SettingsPath, this.Settings)
         GuiControl, ICScriptHub:, StatsCompactTimestamps, % this.Settings["CompactTS"]
-        GuiControl, ICScriptHub:, StatsToggleScientific, % this.Settings["Scientific"]
         this.CompactTimestamps := this.Settings["CompactTS"]
-        this.DisplayScientific := this.Settings["Scientific"]
         Gui, Submit, NoHide
     }
     
@@ -870,11 +851,8 @@ class IC_BrivGemFarm_Stats_Component
         this.CheckMissingOrExtraSettings()
         
         GuiControlGet,StatsCompactTimestamps, ICScriptHub:, StatsCompactTimestamps
-        GuiControlGet,StatsToggleScientific, ICScriptHub:, StatsToggleScientific
         this.Settings["CompactTS"] := StatsCompactTimestamps
-        this.Settings["Scientific"] := StatsToggleScientific
         this.CompactTimestamps := StatsCompactTimestamps
-        this.DisplayScientific := StatsToggleScientific
         
         g_SF.WriteObjectToJSON(this.SettingsPath, this.Settings)
         Gui, Submit, NoHide

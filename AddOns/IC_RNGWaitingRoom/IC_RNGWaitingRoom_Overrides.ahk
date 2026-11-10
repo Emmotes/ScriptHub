@@ -6,10 +6,9 @@ class IC_RNGWaitingRoom_Class extends IC_BrivGemFarm_LevelUp_Class
     GemFarmShouldSetFormation()
     {
         ; Prevent Thellora from being put in the formation on z1 before stacking Ellywick
-        EllywickEnabled := g_BrivUserSettingsFromAddons[ "RNGWR_EllywickGFEnabled" ]
-        if (EllywickEnabled && g_SF.Memory.ReadResetting() || g_SF.Memory.ReadResetsCount() > this.LastResetCount)
+        if (g_SF.Memory.ReadResetting() || g_SF.Memory.ReadResetsCount() > this.LastResetCount)
             g_SharedData.RNGWR_Elly.Reset()
-        if (!EllywickEnabled OR !g_SF.FormationSwitchLock)
+        if (!g_SF.FormationSwitchLock)
             return base.GemFarmShouldSetFormation()
         return False
     }
@@ -26,9 +25,9 @@ class IC_RNGWaitingRoom_Class extends IC_BrivGemFarm_LevelUp_Class
         g_SF.ModronResetZone := g_SF.Memory.GetModronResetArea() ; once per zone in case user changes it mid run.
         if (!g_BrivUserSettingsFromAddons[ "BGFLU_SkipMinDashWait" ] AND g_SF.ShouldDashWait())
             g_SF.DoDashWait( Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0) )
-        this.BGFLU_DoPartySetupMin(g_BrivUserSettingsFromAddons[ "BGFLU_ForceBrivEllywick" ])
+        this.BGFLU_DoPartySetupMin(true)
         g_SF.FormationLevelingLock := False
-        if (g_BrivUserSettingsFromAddons[ "RNGWR_EllywickGFEnabled" ] && g_SF.IsChampInFormation(ActiveEffectKeySharedFunctions.Ellywick.HeroID, formation))
+        if (g_SF.IsChampInFormation(ActiveEffectKeySharedFunctions.Ellywick.HeroID, formation))
             g_SF.RNGWR_DoEllyWait()
         g_SF.FormationSwitchLock := False
         if (g_SF.IsChampInFormation(ActiveEffectKeySharedFunctions.Thellora.HeroID, formation))
@@ -73,7 +72,7 @@ class IC_RNGWaitingRoom_SharedFunctions_Class extends IC_SharedFunctions_Class
     ; a method to swap formations and cancel briv's jump animation.
     SetFormation(settings := "", forceCheck := False)
     {
-        if (!g_BrivUserSettingsFromAddons[ "RNGWR_EllywickGFEnabled" ] OR !g_SF.FormationSwitchLock)
+        if (!g_SF.FormationSwitchLock)
             return base.SetFormation(settings)
     }
 }
@@ -130,11 +129,6 @@ class IC_RNGWaitingRoom_IC_SharedData_Added_Class ; Added to IC_SharedData_Class
         return true
     }
 
-    RNGWR_GemFarmEnabled()
-    {
-        return g_BrivUserSettingsFromAddons[ "RNGWR_EllywickGFEnabled" ]
-    }
-
     RNGWR_SetStatus(text := "")
     {
         this.RNGWR_Status := text
@@ -183,7 +177,6 @@ class IC_RNGWaitingRoom_IC_SharedData_Added_Class ; Added to IC_SharedData_Class
         settings := g_SF.LoadObjectFromJSON(fileName)
         if (!IsObject(settings))
             return false
-        g_BrivUserSettingsFromAddons[ "RNGWR_EllywickGFEnabled" ] := settings.EllywickGFEnabled
         g_BrivUserSettingsFromAddons[ "RNGWR_EllywickGFGemCards" ] := settings.EllywickGFGemCards
         g_BrivUserSettingsFromAddons[ "RNGWR_EllywickGFGemMaxRedraws" ] := settings.EllywickGFGemMaxRedraws
         g_BrivUserSettingsFromAddons[ "RNGWR_EllywickGFGemWaitFor5Draws" ] := settings.EllywickGFGemWaitFor5Draws

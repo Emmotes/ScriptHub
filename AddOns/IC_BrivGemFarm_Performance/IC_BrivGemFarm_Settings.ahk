@@ -68,8 +68,6 @@ ReloadBrivGemFarmSettings(loadFromFile := True)
         g_BrivUserSettings[ "WindowXPosition" ] := 0
     if ( g_BrivUserSettings[ "WindowYPosition" ] == "" )
         g_BrivUserSettings[ "WindowYPosition" ] := 0 
-    if ( g_BrivUserSettings[ "WardenUltThreshold" ] == "" )
-        g_BrivUserSettings[ "WardenUltThreshold" ] := 0
     if ( g_BrivUserSettings[ "FaridehUltThreshold" ] == "" )
         g_BrivUserSettings[ "FaridehUltThreshold" ] := 0
     if ( g_BrivUserSettings[ "PreferredBrivJumpZones" ] == "")

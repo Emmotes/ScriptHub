@@ -13,7 +13,6 @@ class IC_BrivGemFarm_AdvancedSettings_Component
         g_BrivUserSettings[ "PredictStacks" ] := OptionSettingCheck_PredictStacks
         g_BrivUserSettings[ "FortOnlyRestart" ] := OptionSettingCheck_FortOnlyRestart
         g_BrivUserSettings[ "WaitForZoneCompleted" ] := OptionSettingCheck_WaitForZoneCompleted
-        g_BrivUserSettings[ "WardenUltThreshold" ] := OptionSettingEdit_WardenUltThreshold
         g_BrivUserSettings[ "FaridehUltThreshold" ] := OptionSettingEdit_FaridehUltThreshold
         IC_BrivGemFarm_AdvancedSettings_Functions.UpdateJumpSettings()
         g_SF.WriteObjectToJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" , g_BrivUserSettings )
@@ -38,7 +37,6 @@ class IC_BrivGemFarm_AdvancedSettings_Component
             GuiControl, ICScriptHub:, OptionSettingEdit_DashWaitBuffer, % g_BrivUserSettings[ "DashWaitBuffer" ]
             GuiControl, ICScriptHub:, OptionSettingEdit_WindowXPosition, % g_BrivUserSettings[ "WindowXPosition" ]
             GuiControl, ICScriptHub:, OptionSettingEdit_WindowYPosition, % g_BrivUserSettings[ "WindowYPosition" ]
-            GuiControl, ICScriptHub:, OptionSettingEdit_WardenUltThreshold, % g_BrivUserSettings[ "WardenUltThreshold" ]
             GuiControl, ICScriptHub:, OptionSettingEdit_FaridehUltThreshold, % g_BrivUserSettings[ "FaridehUltThreshold" ]
             IC_BrivGemFarm_AdvancedSettings_Functions.LoadPreferredBrivJumpSettings()
         }
@@ -52,7 +50,6 @@ class IC_BrivGemFarm_AdvancedSettings_Component
         GUIFunctions.AddToolTip( "OptionSettingCheck_PredictStacks", "Smart Briv Stack Calculations. Turn off to ignore haste stacks when deciding to stack. Will force stacking once every run.")
         GUIFunctions.AddToolTip( "OptionSettingCheck_FortOnlyRestart", "When running Forced Offline restarts IC will restart instantly rather than farming stacks while offline")
         GUIFunctions.AddToolTip( "OptionSettingCheck_WaitForZoneCompleted", "Complete the zone before online stacking")
-        GUIFunctions.AddToolTip( "OptionSettingText_WardenUltThreshold", "Use Warden's ult while stacking when the number of enemies is greater than the threshold")
         GUIFunctions.AddToolTip( "OptionSettingText_FaridehUltThreshold", "Use Farideh's ult while stacking when the number of enemies is greater than the threshold")
         GUIFunctions.AddToolTip( "OptionSettingText_ForceOfflineRunThreshold", "Stack offline once in every N runs as reported by Resets done of current core (0 or 1 = disable)")
         GUIFunctions.AddToolTip( "OptionSettingText_DashWaitBuffer", "The distance from your modron's reset zone where dashwait will stop being activated.")

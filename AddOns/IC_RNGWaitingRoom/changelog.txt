@@ -1,3 +1,6 @@
+November 10, 2026
+	- Removed the `Gem farm mode (Ellywick)` setting.
+
 September 21, 2026
 	- Removing the stats pane as it was a lying window that lies.
 	- Added some extra text to things to be more clear.
