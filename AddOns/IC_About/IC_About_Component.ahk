@@ -6,6 +6,9 @@ IC_About_Component.Build()
 
 class IC_About_Component
 {
+	static LatestVersionsPath := A_LineFile . "\..\..\SH_Addon_Management\latestVersions.json"
+
+	LatestVersions := ""
     EnabledAddonsValues := Array()
     VersionStringValues := Array()
     ServerCaller := ""
@@ -16,7 +19,10 @@ class IC_About_Component
         GUIFunctions.UseThemeTextColor()
         Gui, ICScriptHub:Add, Text, vAboutLineHeightTest w2,     
         GuiControlGet, xyVal, ICScriptHub:Pos, AboutLineHeightTest
+
+		this.LatestVersions := g_SF.LoadObjectFromJSON(this.LatestVersionsPath)
         IC_About_Component.GetScriptVersions()
+
         aboutGroupBoxHeight := (IC_About_Component.VersionStringValues.Count() + 2) * (xyValH+1) + 15
         Gui, ICScriptHub:Add, GroupBox, xp+15 yp+15 w425 h%aboutGroupBoxHeight% vAboutVersionGroupBox, Version Info: 
         xyValX += 0
@@ -195,8 +201,11 @@ class IC_About_Component
         enabledAddons := Array()
         for k,v in AddonManagement.EnabledAddons
         {
-            if(g_UserSettings[ "CheckForUpdates" ] == True)
+			if (this.LatestVersions != "" && this.LatestVersions.HasKey(v.Name))
+				mostRecent := this.LatestVersions[v.Name]
+            if(mostRecent == "" && g_UserSettings[ "CheckForUpdates" ] == True)
                 mostRecent := this.GetMostRecentVersion(v.Url)
+			
             if(mostRecent != "" AND SH_VersionHelper.IsVersionNewer(mostRecent, v.Version))
                 string := v.Name . " Version: " . v.Version . "`t -- Out of Date (" . mostRecent . ") -- `n" 
             else

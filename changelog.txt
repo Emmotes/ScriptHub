@@ -1,3 +1,7 @@
+November 14, 2026
+	- Added a `latestVersions.json` file to SH_Addon_Management so that the About addon can locally check latest
+	  versions. It will check github URLs only if checking is enabled and it can't find a version in the local file.
+
 November 10, 2026
 	BrivGF Advanced:
 	 - Removed Warden's ultimate trigger.

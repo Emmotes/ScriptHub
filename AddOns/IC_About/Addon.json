@@ -1,6 +1,6 @@
 {
 	"Name":"About",
-	"Version": "v0.4.0",
+	"Version": "v0.4.1",
     "Includes" : "IC_About_Component.ahk",
     "Author" : "Antilectual & mikebaldi1980",
     "Url" : "https://github.com/Emmotes/ScriptHub/tree/main/AddOns/IC_About",
