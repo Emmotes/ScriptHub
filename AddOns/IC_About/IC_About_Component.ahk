@@ -6,9 +6,9 @@ IC_About_Component.Build()
 
 class IC_About_Component
 {
-	static LatestVersionsPath := A_LineFile . "\..\..\SH_Addon_Management\latestVersions.json"
+    static LatestVersionsURL = "https://raw.githubusercontent.com/Emmotes/ScriptHub/refs/heads/main/AddOns/SH_Addon_Management/latestVersions.json"
 
-	LatestVersions := ""
+    LatestVersions := ""
     EnabledAddonsValues := Array()
     VersionStringValues := Array()
     ServerCaller := ""
@@ -20,7 +20,6 @@ class IC_About_Component
         Gui, ICScriptHub:Add, Text, vAboutLineHeightTest w2,     
         GuiControlGet, xyVal, ICScriptHub:Pos, AboutLineHeightTest
 
-		this.LatestVersions := g_SF.LoadObjectFromJSON(this.LatestVersionsPath)
         IC_About_Component.GetScriptVersions()
 
         aboutGroupBoxHeight := (IC_About_Component.VersionStringValues.Count() + 2) * (xyValH+1) + 15
@@ -38,12 +37,12 @@ class IC_About_Component
         IC_About_Component.AddAddonToggle()
         IC_About_Component.BuildEnabledAddons()
 
-		GuiControlGet, pos, ICScriptHub:Pos, AboutVersionGroupBox
-		posX += posW*0.70
-		posy += 20
-		Gui, ICScriptHub:Add, Button, x%posX% y%posY% vAboutDownloadImportsButton, Download Imports
-		AboutComponentDownload := ObjBindMethod(IC_About_Component, "DownloadImports")
-		GuiControl,ICScriptHub: +g, AboutDownloadImportsButton, % AboutComponentDownload
+        GuiControlGet, pos, ICScriptHub:Pos, AboutVersionGroupBox
+        posX += posW*0.70
+        posy += 20
+        Gui, ICScriptHub:Add, Button, x%posX% y%posY% vAboutDownloadImportsButton, Download Imports
+        AboutComponentDownload := ObjBindMethod(IC_About_Component, "DownloadImports")
+        GuiControl,ICScriptHub: +g, AboutDownloadImportsButton, % AboutComponentDownload
     }
 
     AddAddonToggle()
@@ -199,13 +198,17 @@ class IC_About_Component
     {
         string := ""
         enabledAddons := Array()
+        if (g_UserSettings[ "CheckForUpdates" ] == True)
+            this.LatestVersions := this.ServerCaller.BasicServerCall(this.LatestVersionsURL)
         for k,v in AddonManagement.EnabledAddons
         {
-			if (this.LatestVersions != "" && this.LatestVersions.HasKey(v.Name))
-				mostRecent := this.LatestVersions[v.Name]
-            if(mostRecent == "" && g_UserSettings[ "CheckForUpdates" ] == True)
-                mostRecent := this.GetMostRecentVersion(v.Url)
-			
+            if (g_UserSettings[ "CheckForUpdates" ] == True)
+            {
+                if (this.LatestVersions != "" && this.LatestVersions.HasKey(v.Name))
+                    mostRecent := this.LatestVersions[v.Name]
+                else
+                    mostRecent := this.GetMostRecentVersion(v.Url)
+            }
             if(mostRecent != "" AND SH_VersionHelper.IsVersionNewer(mostRecent, v.Version))
                 string := v.Name . " Version: " . v.Version . "`t -- Out of Date (" . mostRecent . ") -- `n" 
             else
@@ -301,72 +304,72 @@ class IC_About_Component
         return versionString
     }
 
-	DownloadImports()
-	{
+    DownloadImports()
+    {
         global AboutComponentImportsWarning, AboutComponentGameVersion, g_SF, _MemoryManager, g_ImportsGameVersion64, g_ImportsGameVersionPostFix64, g_ImportsGameVersionPlatform64
         GuiControl,ICScriptHub:Disable, AboutDownloadImportsButton
-		GuiControl,ICScriptHub:, AboutDownloadImportsButton, Downloading...
+        GuiControl,ICScriptHub:, AboutDownloadImportsButton, Downloading...
         g_SF.Memory.OpenProcessReader()
         gameVersionaArch := _MemoryManager.is64bit ? " (64 bit)" : " (32 bit)"
-		vg := g_SF.Memory.ReadGameVersion()
-		vi := g_ImportsGameVersion64 . g_ImportsGameVersionPostFix64
-		pi := g_ImportsGameVersionPlatform64 != "" ? g_ImportsGameVersionPlatform64 : ""
-		pg := g_SF.Memory.ReadPlatform()
-		if pg is number
-			pg := pg == 21 ? "EGS" : "Steam"
-		else if(InStr(g_UserSettings[ "InstallPath" ], "IdleDragons.exe"))
-			pg := "Steam"
-		else
-			pg := "EGS"
-		if (vg == vi && pg == pi)
-		{
-			MsgBox, % "You already have the correct imports for your game."
-			GuiControl,ICScriptHub:Hide, AboutDownloadImportsButton
-			return
-		}
-		this.DownloadImportsZIP(pg)
-		GuiControl,ICScriptHub:, AboutDownloadImportsButton, Download Imports
+        vg := g_SF.Memory.ReadGameVersion()
+        vi := g_ImportsGameVersion64 . g_ImportsGameVersionPostFix64
+        pi := g_ImportsGameVersionPlatform64 != "" ? g_ImportsGameVersionPlatform64 : ""
+        pg := g_SF.Memory.ReadPlatform()
+        if pg is number
+            pg := pg == 21 ? "EGS" : "Steam"
+        else if(InStr(g_UserSettings[ "InstallPath" ], "IdleDragons.exe"))
+            pg := "Steam"
+        else
+            pg := "EGS"
+        if (vg == vi && pg == pi)
+        {
+            MsgBox, % "You already have the correct imports for your game."
+            GuiControl,ICScriptHub:Hide, AboutDownloadImportsButton
+            return
+        }
+        this.DownloadImportsZIP(pg)
+        GuiControl,ICScriptHub:, AboutDownloadImportsButton, Download Imports
         GuiControl,ICScriptHub:Enable, AboutDownloadImportsButton
-	}
+    }
 
-	DownloadImportsZIP(importType)
-	{
-		zipUrl := "https://github.com/Emmotes/ic_scripting_imports/raw/refs/heads/main/ZIPS/Latest_" importType ".zip"
-		zipFile := A_LineFile "\..\imports.zip"
-		extractDir := A_LineFile "\..\..\IC_Core\MemoryRead\"
+    DownloadImportsZIP(importType)
+    {
+        zipUrl := "https://github.com/Emmotes/ic_scripting_imports/raw/refs/heads/main/ZIPS/Latest_" importType ".zip"
+        zipFile := A_LineFile "\..\imports.zip"
+        extractDir := A_LineFile "\..\..\IC_Core\MemoryRead\"
 
-		; Download
-		UrlDownloadToFile, %zipUrl%, %zipFile%
+        ; Download
+        UrlDownloadToFile, %zipUrl%, %zipFile%
 
-		if ErrorLevel
-		{
-			MsgBox, 0x30, Invalid Data, % "Couldn't download the latest " importType " imports.`n`nYou may need to get them manually."
-			return
-		}
+        if ErrorLevel
+        {
+            MsgBox, 0x30, Invalid Data, % "Couldn't download the latest " importType " imports.`n`nYou may need to get them manually."
+            return
+        }
 
-		; Create the directory if missing
-		if !InStr(FileExist(offsetDirectory), "D")
-			FileCreateDir, %offsetDirectory%
+        ; Create the directory if missing
+        if !InStr(FileExist(offsetDirectory), "D")
+            FileCreateDir, %offsetDirectory%
 
-		; Escape single quotes for PowerShell
-		psZip := StrReplace(zipFile, "'", "''")
-		psDir := StrReplace(extractDir, "'", "''")
-		command := "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command "
+        ; Escape single quotes for PowerShell
+        psZip := StrReplace(zipFile, "'", "''")
+        psDir := StrReplace(extractDir, "'", "''")
+        command := "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command "
          . """try { Expand-Archive -LiteralPath '" psZip "' -DestinationPath '" psDir "' -Force; exit 0 } "
          . "catch { Write-Error $_; exit 1 }"""
 
-		RunWait, %command%,, Hide
+        RunWait, %command%,, Hide
 
-		if ErrorLevel
-		{
-			MsgBox, 0x30, Invalid Data, % "Couldn't extract the " importType " imports data.`n`nYou may need to get them manually."
-			FileDelete, %zipFile%
-			return
-		}
+        if ErrorLevel
+        {
+            MsgBox, 0x30, Invalid Data, % "Couldn't extract the " importType " imports data.`n`nYou may need to get them manually."
+            FileDelete, %zipFile%
+            return
+        }
 
-		FileDelete, %zipFile%
+        FileDelete, %zipFile%
 
-		MsgBox, 0x20, Success, % "Successfully downloaded the " importType " imports. Script Hub will now restart."
-		Reload
-	}
+        MsgBox, 0x20, Success, % "Successfully downloaded the " importType " imports. Script Hub will now restart."
+        Reload
+    }
 }

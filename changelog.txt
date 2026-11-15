@@ -1,3 +1,8 @@
+November 15, 2026
+	- What idiot wrote this code? Fixed a bafflingly stupid decision from my previous plan. The script will check github
+	  for the latest versions because of course checking locally is utterly pointless.
+	  But at least now it will check one file as opposed to several.
+
 November 14, 2026
 	- Added a `latestVersions.json` file to SH_Addon_Management so that the About addon can locally check latest
 	  versions. It will check github URLs only if checking is enabled and it can't find a version in the local file.
